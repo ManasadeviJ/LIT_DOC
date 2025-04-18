@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "COSMOS_DB_ENDPOINT": "https://your-cosmos-account.documents.azure.com:443/",
+    "COSMOS_DB_KEY": "your-cosmos-db-key",
+    "ACS_CONNECTION_STRING": "your-acs-connection-string",
+    "CONFIRMATION_URL": "https://luxuryintaste.azurewebsites.net/api/confirm",
+    "EMAIL_SENDER_ADDRESS": "your-verified-email@your-domain.com"
+  }
+} 

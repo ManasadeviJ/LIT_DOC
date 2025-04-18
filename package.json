@@ -1,0 +1,16 @@
+{
+  "name": "lit-landing-page-functions",
+  "version": "1.0.0",
+  "description": "Azure Functions for LIT Landing Page",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests specified\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@azure/functions": "^3.5.1"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
