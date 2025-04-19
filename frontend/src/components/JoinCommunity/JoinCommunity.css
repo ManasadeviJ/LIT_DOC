@@ -142,7 +142,9 @@
 }
 
 .secondary-button:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  filter: brightness(1.2);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .secondary-button:focus-visible {
@@ -221,15 +223,15 @@
   .content {
     padding-left: 20px;
     padding-right: 20px;
-    margin-top: 70px;
+    margin-top: 536px;
   }
 
   .content h1 {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 
   .content p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-bottom: 1.2rem;
     line-height: 1.4;
   }
@@ -262,7 +264,7 @@
   .cta-button, .secondary-button {
     max-width: 140px;
     height: 38px;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     border-radius: 12px;
   }
 }

@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
   width: 100%;
 }
 
@@ -32,7 +32,7 @@
 
 .footer-main-nav {
   display: flex;
-  gap: 7.5rem;
+  gap: 6.9rem;
   justify-content: center;
   flex: 1;
   margin: 0 2rem;
@@ -49,6 +49,38 @@
 
 .footer-main-nav a:hover {
   opacity: 0.8;
+}
+
+@media screen and (max-width: 1400px) {
+  .footer-main-nav {
+    gap: 5rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .footer-main-nav {
+    gap: 4rem;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .footer-main-nav {
+    gap: 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer-main-nav {
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer-main-nav {
+    gap: 1.5rem;
+  }
 }
 
 /* Secondary Footer Section */
@@ -120,12 +152,16 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 300px;
 }
 
 .footer-contact-item {
   display: flex;
   align-items: center;
   gap: 1rem;
+  width: 100%;
 }
 
 .footer-contact-item span {
@@ -133,6 +169,7 @@
   font-size: 1rem;
   color: #FFFFFF;
   min-width: 80px;
+  text-align: left;
 }
 
 .footer-contact-item img {
@@ -208,8 +245,10 @@
   }
 
   .footer-contact-section {
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 2rem;
+    width: 100%;
+    max-width: 300px;
   }
 
   .footer-main-nav {
@@ -245,19 +284,24 @@
   }
 
   .footer-contact-section {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
   }
 
   .footer-contact-item {
     flex-direction: row;
     align-items: center;
+    width: 100%;
+    justify-content: center;
   }
 
   .footer-contact-item span {
-    display: none;
+    display: block;
+    min-width: 80px;
+    text-align: left;
   }
 
   .footer-email-container {

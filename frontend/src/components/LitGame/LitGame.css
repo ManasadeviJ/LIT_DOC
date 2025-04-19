@@ -18,7 +18,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-131%) translateY(5%);
+  transform: translateX(-141%) translateY(5%);
   z-index: 2;
   padding: 0.75rem 3rem;
   border: 3px solid #FFFFFF;
@@ -47,7 +47,7 @@
 
 .game-preview {
   flex: 1.2;
-  padding: 4rem 2rem;
+  padding: 2rem 1rem;
   border: 3px solid #FFFFFF;
   border-radius: 24px;
   background: radial-gradient(361.9% 1005.15% at 49.99% 60.82%, rgba(0, 0, 0, 0.6) 0%, rgba(147, 51, 234, 0.7) 50%);
@@ -57,7 +57,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  min-height: 500px;
+  min-height: 400px;
 }
 
 .game-cards {
@@ -68,7 +68,7 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 3rem 0;
+  padding: 1rem 0;
 }
 
 .card {
@@ -205,13 +205,13 @@
   }
 
   .game-preview {
-    min-height: 600px;
-    padding: 5rem 2rem;
+    min-height: 450px;
+    padding: 2.5rem 1rem;
   }
 
   .game-cards {
     max-width: 900px;
-    padding: 4rem 0;
+    padding: 1.5rem 0;
   }
 
   .card {
@@ -238,13 +238,13 @@
 
 @media (max-width: 1440px) {
   .game-preview {
-    min-height: 550px;
-    padding: 4.5rem 2rem;
+    min-height: 400px;
+    padding: 2rem 1rem;
   }
 
   .game-cards {
     max-width: 850px;
-    padding: 3.5rem 0;
+    padding: 1rem 0;
   }
 
   .card {
@@ -268,13 +268,13 @@
 
 @media (max-width: 1200px) {
   .game-preview {
-    min-height: 500px;
-    padding: 4rem 2rem;
+    min-height: 380px;
+    padding: 2rem 1rem;
   }
 
   .game-cards {
     max-width: 800px;
-    padding: 3rem 0;
+    padding: 1rem 0;
   }
 
   .card {
@@ -318,15 +318,15 @@
   .game-preview {
     width: 100%;
     max-width: 800px;
-    min-height: 450px;
-    padding: 4rem 1rem;
+    min-height: 350px;
+    padding: 1.5rem 1rem;
     margin: 0 auto;
   }
 
   .game-info {
     width: 100%;
-    align-items: center;
-    text-align: center;
+    align-items: left;
+    text-align: left;
     padding: 0 2rem;
   }
 
@@ -337,7 +337,7 @@
 
   .game-cards {
     max-width: 700px;
-    padding: 2.5rem 0;
+    padding: 1rem 0;
   }
 
   .card {
@@ -363,8 +363,8 @@
   .game-preview {
     width: 100%;
     max-width: 700px;
-    min-height: 400px;
-    padding: 3.5rem 1rem;
+    min-height: 320px;
+    padding: 1.5rem 0.75rem;
   }
 
   .game-section {
@@ -381,7 +381,7 @@
 
   .game-cards {
     max-width: 600px;
-    padding: 2rem 0;
+    padding: 0.75rem 0;
   }
 
   .card {
@@ -436,13 +436,13 @@
   .game-preview {
     width: 100%;
     max-width: 600px;
-    min-height: 350px;
-    padding: 3rem 0.75rem;
+    min-height: 300px;
+    padding: 1.25rem 0.75rem;
   }
 
   .game-cards {
     max-width: 500px;
-    padding: 1.5rem 0;
+    padding: 0.75rem 0;
   }
 
   .card {
@@ -489,13 +489,13 @@
   .game-preview {
     width: 100%;
     max-width: 500px;
-    min-height: 300px;
-    padding: 2.5rem 0.75rem;
+    min-height: 20px;
+    padding: 1rem 0.5rem;
   }
 
   .game-cards {
     max-width: 450px;
-    padding: 1.25rem 0;
+    padding: 0.5rem 0;
   }
 
   .card {
@@ -553,7 +553,7 @@
 
   .game-cards {
     max-width: 400px;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
   }
 
   .game-info h2 {

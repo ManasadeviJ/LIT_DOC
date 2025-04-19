@@ -3,13 +3,11 @@ import './Navbar.css';
 import litLogo from '../../assets/lit-logo.png';
 import profileAvatar from '../../assets/profile-avatar.png';
 import notificationIcon from '../../assets/notification-icon.svg';
-import { usePopup } from '../../context/PopupContext';
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { openPopup } = usePopup();
 
   // Handle scroll effect
   useEffect(() => {
@@ -74,21 +72,25 @@ const Navbar = () => {
             className={activeLink === 'newsletters' ? 'active' : ''} 
             onClick={() => handleLinkClick('newsletters')}
           >
-            Newsletters
+            Newsletter
           </a>
           <a 
             href="#settings" 
             className={activeLink === 'settings' ? 'active' : ''} 
             onClick={() => handleLinkClick('settings')}
           >
-            Settings
+            Avatar Store
+          </a>
+          <a 
+            href="#ir-icon" 
+            className={activeLink === 'ir-icon' ? 'active' : ''} 
+            onClick={() => handleLinkClick('ir-icon')}
+          >
+            IR Icon
           </a>
         </div>
         
         <div className="navbar-right">
-          <button className="subscribe-button" onClick={openPopup}>
-            Subscribe
-          </button>
           <div className="notification-icon">
             <img src={notificationIcon} alt="Notifications" className="notification-img" />
           </div>

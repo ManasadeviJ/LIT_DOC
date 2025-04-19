@@ -44,19 +44,19 @@ const Footer = () => {
           <div className="footer-contact-section">
             <div className="footer-contact-item">
               <span>Email</span>
-              <a href="mailto:contact@luxuryintaste.com">
+              <a href="mailto:info@luxuryintaste.com">
                 <img src={emailIcon} alt="Email" />
               </a>
             </div>
             <div className="footer-contact-item">
               <span>LinkedIn</span>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/company/luxury-in-taste-lit/" target="_blank" rel="noopener noreferrer">
                 <img src={linkedinIcon} alt="LinkedIn" />
               </a>
             </div>
             <div className="footer-contact-item">
               <span>Instagram</span>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/luxuryintaste?utm_source=qr&igsh=MTU3NTlmNWdzY25kYw==" target="_blank" rel="noopener noreferrer">
                 <img src={instagramIcon} alt="Instagram" />
               </a>
             </div>

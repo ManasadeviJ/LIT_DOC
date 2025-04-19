@@ -59,6 +59,11 @@ module.exports = async function (context, req) {
             context.log('⚠️ Email already exists in subscribers list');
             context.res = {
                 status: 400,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': context.req.headers.origin || '*',
+                    'Access-Control-Allow-Credentials': 'true'
+                },
                 body: { error: "Email already subscribed" }
             };
             return;
@@ -78,31 +83,104 @@ module.exports = async function (context, req) {
         // Initialize Azure Communication Services Email client
         const connectionString = process.env.ACS_CONNECTION_STRING;
         const senderEmail = process.env.EMAIL_SENDER_ADDRESS;
-        const confirmationUrl = process.env.CONFIRMATION_URL;
+        const websiteUrl = process.env.FRONTEND_URL || 'https://black-moss-014630a10.6.azurestaticapps.net';
 
-        context.log('🔧 Email connection string:', connectionString ? '✔️ Found' : '❌ Missing');
-        context.log('📤 Sender address:', senderEmail || '❌ Not found');
-        context.log('🔗 Confirmation URL:', confirmationUrl || '❌ Not found');
+        const htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #1a1a1a; color: #ffffff;">
+                <!-- LIT Logo -->
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <img src="https://luxuryintaste.blob.core.windows.net/images/lit-logo-white.png" alt="LIT Logo" style="width: 100px; height: auto;">
+                </div>
 
+                <!-- Welcome Text -->
+                <h1 style="color: #9333EA; text-align: center; font-size: 28px; margin-bottom: 20px;">
+                    Welcome to LIT - Your Weekly Fashion Fix!
+                </h1>
+
+                <!-- Subtitle -->
+                <h2 style="color: #ffffff; text-align: center; font-size: 24px; margin-bottom: 30px;">
+                    Stay Ahead of Fashion Trends with LIT!
+                </h2>
+
+                <!-- Main Content -->
+                <p style="color: #a0a0a0; font-size: 16px; line-height: 1.6; margin-bottom: 20px; text-align: left;">
+                    You're officially part of LIT's fashion-forward community! Get ready for weekly updates on 
+                    Fast Fashion, Luxury Fashion, Sustainable Fashion, and the Sneaker Market to keep you informed.
+                </p>
+
+                <p style="color: #a0a0a0; font-size: 16px; line-height: 1.6; margin-bottom: 20px; text-align: left;">
+                    We promise zero fluff, just pure fashion insights to keep you ahead of the curve.
+                </p>
+
+                <p style="color: #a0a0a0; font-size: 16px; line-height: 1.6; margin-bottom: 30px; text-align: left;">
+                    Stay tuned for our first edition!
+                </p>
+
+                <!-- Team Signature -->
+                <p style="color: #9333EA; text-align: center; font-size: 18px; margin-bottom: 20px;">
+                    LIT Team
+                </p>
+
+                <!-- Social Media Section -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="color: #9333EA; font-size: 18px; margin-bottom: 20px;">
+                        Follow Us on Socials
+                    </p>
+                    <div style="display: inline-block;">
+                        <a href="https://linkedin.com/company/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
+                            <img src="https://luxuryintaste.blob.core.windows.net/images/linkedin.png" alt="LinkedIn" style="width: 40px; height: 40px;">
+                        </a>
+                        <a href="https://instagram.com/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
+                            <img src="https://luxuryintaste.blob.core.windows.net/images/instagram.png" alt="Instagram" style="width: 40px; height: 40px;">
+                        </a>
+                        <a href="https://facebook.com/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
+                            <img src="https://luxuryintaste.blob.core.windows.net/images/facebook.png" alt="Facebook" style="width: 40px; height: 40px;">
+                        </a>
+                        <a href="https://twitter.com/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
+                            <img src="https://luxuryintaste.blob.core.windows.net/images/twitter.png" alt="Twitter" style="width: 40px; height: 40px;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Send welcome email
         const emailClient = new EmailClient(connectionString);
-
-        // Send confirmation email
         const emailMessage = {
             senderAddress: senderEmail,
             content: {
-                subject: "Confirm your newsletter subscription",
-                plainText: `Thank you for subscribing to our newsletter! Please click the following link to confirm your subscription: ${confirmationUrl}?email=${email}`
+                subject: "Welcome to LIT - Your Weekly Fashion Fix!",
+                html: htmlContent,
+                plainText: `
+Welcome to LIT - Your Weekly Fashion Fix!
+
+Stay Ahead of Fashion Trends with LIT!
+
+You're officially part of LIT's fashion-forward community! Get ready for weekly updates on Fast Fashion, Luxury Fashion, Sustainable Fashion, and the Sneaker Market to keep you informed.
+
+We promise zero fluff, just pure fashion insights to keep you ahead of the curve.
+
+Stay tuned for our first edition!
+
+LIT Team
+
+Follow Us on Socials:
+LinkedIn: https://linkedin.com/company/luxuryintaste
+Instagram: https://instagram.com/luxuryintaste
+Facebook: https://facebook.com/luxuryintaste
+Twitter: https://twitter.com/luxuryintaste
+                `
             },
             recipients: {
                 to: [{ address: email }]
             }
         };
 
-        context.log('📨 Sending confirmation email...');
+        context.log('📨 Sending welcome email...');
         const poller = await emailClient.beginSend(emailMessage);
         const result = await poller.pollUntilDone();
 
-        context.log('✅ Confirmation email sent');
+        context.log('✅ Welcome email sent');
 
         context.res = {
             status: 200,
@@ -111,7 +189,7 @@ module.exports = async function (context, req) {
                 'Access-Control-Allow-Origin': context.req.headers.origin || '*',
                 'Access-Control-Allow-Credentials': 'true'
             },
-            body: { message: "Subscription successful! Please check your email to confirm." }
+            body: { message: "Welcome to LIT! Please check your email to confirm your subscription." }
         };
     } catch (error) {
         context.log.error('❗️ Error during subscription process:', error);
@@ -122,7 +200,7 @@ module.exports = async function (context, req) {
                 'Access-Control-Allow-Origin': context.req.headers.origin || '*',
                 'Access-Control-Allow-Credentials': 'true'
             },
-            body: { message: "An error occurred while processing your subscription" }
+            body: { error: "An error occurred while processing your subscription" }
         };
     }
 };

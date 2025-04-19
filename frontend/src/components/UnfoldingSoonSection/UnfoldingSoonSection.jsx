@@ -1,0 +1,68 @@
+import React from 'react';
+import './UnfoldingSoonSection.css';
+import avatarStoreIcon from '../../assets/AvatarStore-icon.svg';
+import socialPlatformIcon from '../../assets/Social-Platform-icon.svg';
+import irIcon from '../../assets/IR-icon.svg';
+
+const UnfoldingSoonSection = () => {
+  return (
+    <section className="unfolding-soon-container">
+      <h1>Unfolding other Verticals soon</h1>
+      
+      <div className="icons-container">
+        <div className="section-wrapper">
+          <div className="card-description">
+            <pre><h2>Avatar Store</h2></pre>
+            <p> Your Alter Ego Vault</p>
+          </div>
+          <div className="icon-card-wrapper">
+            <div className="icon-card">
+              <div className="card-front">
+                <img src={avatarStoreIcon} alt="Avatar Store" className="vertical-icon" id="avatar-store-icon"/>
+              </div>
+              <div className="card-back">
+                <p>Offers virtual collections of fast fashion and luxury goods for personalized avatar experience.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="section-wrapper">
+          <div className="card-description">
+            <pre><h2>Social Platform</h2></pre>
+            <p>Inspire. Engage. Earn</p>
+          </div>
+          <div className="icon-card-wrapper">
+            <div className="icon-card">
+              <div className="card-front">
+                <img src={socialPlatformIcon} alt="Social Platform" className="vertical-icon" id="social-platform-icon"/>
+              </div>
+              <div className="card-back">
+                <p>Serves as a vibrant hub for fashion enthusiasts to sell their collection, share their thoughts and connect with people.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="section-wrapper">
+          <div className="card-description">
+            <h2>IR Platform</h2>
+            <p>Your lens to instant shopping</p>
+          </div>
+          <div className="icon-card-wrapper">
+            <div className="icon-card">
+              <div className="card-front">
+                <img src={irIcon} alt="IR Platform" className="vertical-icon" id="ir-platform-icon"/>
+              </div>
+              <div className="card-back">
+                <p>Effortlessly provides customers with the exact product links of image uploaded.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default UnfoldingSoonSection; 

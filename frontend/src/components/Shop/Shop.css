@@ -2,13 +2,13 @@
   width: 100%;
   padding: 6rem 2rem;
   color: #FFFFFF;
-  margin-top: 2rem;
+  margin-top: 0rem;
 }
 
 .shop-header {
   text-align: left;
-  max-width: 1200px;
-  margin: 0 auto 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 0 1rem;
 }
 
@@ -33,10 +33,9 @@
 
 .shop-cards {
   display: flex;
-  flex-direction: row;
   gap: 2rem;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 3rem auto 0;
   padding: 0 1rem;
 }
 
@@ -50,7 +49,8 @@
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
-  min-height: 400px;
+  min-height: 320px;
+  gap: 1.5rem;
 }
 
 .card-text {
@@ -81,13 +81,16 @@
 }
 
 .shop-card-image {
-  flex: 1;
+  flex: 0.8;
   position: relative;
   overflow: hidden;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 260px;
+  height: 100%;
 }
 
 .shop-card-image img {
@@ -96,6 +99,22 @@
   object-fit: cover;
   border-radius: 12px;
   filter: grayscale(100%);
+}
+
+#shop-sustainable-image {
+  width: 107%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+#shop-luxury-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
 }
 
 .coming-soon-btn {
@@ -120,14 +139,66 @@
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
+.card-description {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.card-description p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.read-more-btn {
+  background: transparent;
+  border: none;
+  color: rgba(204, 204, 204, 0.8);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.read-more-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.read-more-btn:focus {
+  outline: none;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .shop-header h1 {
     font-size: 3.5rem;
   }
 
+  .shop-cards {
+    max-width: 1000px;
+  }
+
   .shop-card {
-    min-height: 380px;
+    min-height: 300px;
+  }
+
+  .shop-card-image {
+    max-width: 240px;
+  }
+
+  #shop-sustainable-image,
+  #shop-luxury-image {
+    object-position: center;
   }
 }
 
@@ -141,8 +212,71 @@
     max-width: 100%;
   }
 
+  .footer-contact-section {
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 159px;
+  }
+
   .shop-card {
-    min-height: 350px;
+    min-height: 250px;
+    padding: 0.875rem;
+    gap: 0.25rem;
+  }
+
+  .card-text {
+    padding-right: 0.25rem;
+    text-align: left;
+    flex: 0.7;
+  }
+
+  .card-text h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+    text-align: left;
+  }
+
+  .card-text p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .card-description p {
+    font-size: 0.95rem;
+  }
+
+  .read-more-btn {
+    font-size: 0.85rem;
+  }
+
+  .shop-card-image {
+    max-width: 160px;
+    flex: 0.5;
+  }
+
+  #shop-sustainable-image,
+  #shop-luxury-image {
+    object-position: center;
+  }
+}
+
+@media (max-width: 974px) {
+  .shop-card {
+    min-height: 250px;
+    padding: 0.875rem;
+    gap: 0.25rem;
+  }
+
+  .card-text {
+    padding-right: 0.25rem;
+    flex: 0.7;
+  }
+
+  .shop-card-image {
+    max-width: 160px;
+    flex: 0.5;
   }
 }
 
@@ -152,7 +286,7 @@
   }
 
   .shop-header {
-    text-align: center;
+    text-align: left;
   }
 
   .shop-header h1 {
@@ -165,29 +299,68 @@
   }
 
   .shop-card {
-    min-height: 300px;
-    padding: 1.25rem;
+    min-height: 250px;
+    padding: 0.875rem;
+    gap: 0.25rem;
   }
 
   .card-text {
-    padding-right: 1.5rem;
+    padding-right: 0.25rem;
     text-align: left;
+    flex: 0.7;
+  }
+
+  #ir-platform-icon {
+    width: 164px;
+    height: 400px;
+  }
+
+  #social-platform-icon {
+    width: 217px;
+    height: 360px;
+  }
+
+  #avatar-store-icon {
+    width: 145px;
+    height: 440px;
+  }
+
+  .unfolding-soon-container h1 {
+    font-size: 2.6rem;
+    margin-bottom: 3rem;
+    text-align: left;
+    padding: 0;
   }
 
   .card-text h2 {
-    font-size: 1.5rem;
+    font-size: 2.35rem;
+    margin-bottom: 0.75rem;
     text-align: left;
   }
 
   .card-text p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
     text-align: left;
   }
 
-  .coming-soon-btn {
-    padding: 8px 16px;
-    font-size: 0.95rem;
+  .card-description p {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .read-more-btn {
+    font-size: 1.4rem;
+  }
+
+  .shop-card-image {
+    max-width: 160px;
+    flex: 0.5;
+  }
+
+  #shop-sustainable-image,
+  #shop-luxury-image {
+    object-position: center;
   }
 }
 
@@ -218,42 +391,100 @@
     text-align: left;
   }
 
-  .coming-soon-btn {
-    padding: 8px 14px;
-    font-size: 0.9rem;
+  .card-description p {
+    font-size: 1.35rem;
+  }
+
+  .read-more-btn {
+    font-size: 1.25rem;
+  }
+
+  .shop-card-image {
+    max-width: 220px;
+  }
+
+  #shop-sustainable-image,
+  #shop-luxury-image {
+    object-position: center;
   }
 }
 
 @media (max-width: 480px) {
   .shop-header h1 {
-    font-size: 2.25rem;
+    font-size: 1.7rem;
+  }
+
+  .shop-header p {
+    font-size: 0.7rem;
+  }
+
+  .register-interest-main-heading {
+    font-size: 1.15rem;
+    line-height: 1.4;
+    max-width: 96%;
+    padding: 0;
+  }
+
+  .unfolding-soon-container h1 {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    text-align: left;
+    padding: 0;
   }
 
   .shop-card {
-    min-height: 260px;
+    min-height: 170px;
     padding: 0.875rem;
   }
 
   .card-text {
     padding-right: 0.875rem;
     text-align: left;
+    gap: 0.5rem;
   }
 
   .card-text h2 {
     font-size: 1.25rem;
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.3rem;
     text-align: left;
   }
 
   .card-text p {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
     line-height: 1.4;
     text-align: left;
+  }
+
+  .card-description p {
+    font-size: 0.7rem;
+    line-height: 1.3;
   }
 
   .coming-soon-btn {
     padding: 7px 12px;
     font-size: 0.85rem;
+    margin-top: 0.3rem;
   }
+
+  .read-more-btn {
+    font-size: 0.7rem;
+  }
+
+  .shop-card-image {
+    max-width: 180px;
+  }
+
+  #shop-sustainable-image,
+  #shop-luxury-image {
+    object-position: center;
+  }
+}
+
+.footer-main-nav {
+  display: flex;
+  gap: 4.5rem;
+  justify-content: center;
+  flex: 1;
+  margin: 0 2rem;
 } 

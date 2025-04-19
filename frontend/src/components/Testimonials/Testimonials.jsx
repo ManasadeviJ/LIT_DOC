@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import './Testimonials.css';
-import testimonialUserImage from '../../assets/testimonial-user.png';
+import girlProfileFace from '../../assets/girl-profile-face.svg';
+import boyProfileFace from '../../assets/boy-profile-face.svg';
 
 const Testimonials = () => {
   const scrollContainerRef = useRef(null);
@@ -22,35 +23,40 @@ const Testimonials = () => {
 
   const testimonials = [
     {
-      name: "JayaSri RajKumar",
-      text: "It hasn’t even launched yet and I’m already obsessed. The energy, the ideas, the vision 👏"
+      name: "Aishwarya",
+      text: "It hasn't even launched yet and I'm already obsessed. The energy, the ideas, the vision 👏",
+      gender: "female"
     },
     {
-      name: "Saif",
-      text: "It’s giving... next-gen. I just know this platform’s going to blow up."
+      name: "Advik",
+      text: "It's giving... next-gen. I just know this platform's going to blow up.",
+      gender: "male"
     },
     {
-      name: "Aiman",
-      text: "Can't wait for the e coming platform to drop in"
+      name: "Tarvika",
+      text: "Can't wait for the e commerce platform to drop in",
+      gender: "female"
     },
     {
-      name: "Shifa",
-      text: "From what I’ve seen so far? Innovation + fun + community = LIT. Can’t wait to try it."
+      name: "Jay",
+      text: "From what I've seen so far? Innovation + fun + community = LIT. Can't wait to try it.",
+      gender: "male"
     },
     {
-      name: "Amrin",
-      text: "Their newsletter is so goood and fine."
+      name: "Nisha",
+      text: "Their newsletter is so goood and fine.",
+      gender: "female"
     },
     {
-      name: "Mosi",
-      text: "I’ve seen a sneak peek of the platform and let me tell you—this is going to change the game."
+      name: "Vihan",
+      text: "I've seen a sneak peek of the platform and let me tell you—this is going to change the game.",
+      gender: "male"
     },
     {
-      name: "Naresh",
-      text: "The design is so good, we'll curated🔥"
+      name: "Ishaan",
+      text: "The design is so good, well curated🔥",
+      gender: "male"
     }
-    
-    
   ];
 
   return (
@@ -69,8 +75,13 @@ const Testimonials = () => {
         <div className="testimonials-scroll" ref={scrollContainerRef}>
           {testimonials.map((testimonial, index) => (
             <div className="testimonial-card" key={index}>
-              <div className="testimonial-user-image">
-                <img src={testimonialUserImage} alt="User" />
+              <div className={`testimonial-user-image ${testimonial.gender}`}>
+                <img 
+                  src={testimonial.gender === 'female' ? girlProfileFace : boyProfileFace} 
+                  alt={`${testimonial.name}'s profile`}
+                  className="profile-svg"
+                  id={testimonial.gender === 'male' ? 'male-image' : ''}
+                />
               </div>
               <h3>{testimonial.name}</h3>
               <p>{testimonial.text}</p>

@@ -38,7 +38,7 @@
 .register-interest-main-heading {
   font-family: 'Poppins', sans-serif;
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 400;
   color: #FFFFFF;
   line-height: 1.2;
   margin-bottom: 1.25rem;
@@ -185,14 +185,14 @@
   }
 
   .register-interest-main-heading {
-    font-size: 1.3rem;
+    font-size: 1.7rem;
     line-height: 1.4;
     max-width: 96%;
     padding: 0;
   }
 
   .register-interest-subtext {
-    font-size: 0.95rem;
+    font-size: 0.7rem;
     max-width: 94%;
   }
 
@@ -225,7 +225,7 @@
 
   .register-interest-subtext {
     font-size: 0.875rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.25rem;
     max-width: 96%;
   }
 

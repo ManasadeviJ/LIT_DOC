@@ -1,36 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Shop.css';
 import shopSustainableImage from '../../assets/shop-section-girl.jpg';
 import shopLuxuryImage from '../../assets/shop-section-man.jpg';
 
 const Shop = () => {
+  const [showSustainableText, setShowSustainableText] = useState(false);
+  const [showLuxuryText, setShowLuxuryText] = useState(false);
+
+  const sustainableText = "Our sustainable e-commerce platform offers a curated selection of eco-friendly products, from fashion to everyday essentials. Discover brands committed to sustainability, reduce your carbon footprint, and shop with a purpose. Join us in making a positive impact";
+  const luxuryText = "Our luxury e-commerce platform offers a curated selection of the finest luxury products with exclusive discounts. From timeless pieces to everyday luxury, only on our platform.";
+
   return (
     <section className="shop-container">
       <div className="shop-header">
         <h1>Shop Luxury & Sustainable Fashion</h1>
-        <p>Explore New Sustainable Products, Brands, and Enjoy Exclusive Discounts on Luxury Goods, and Much More—Only on Our Platform.</p>
+        <p>Explore New Sustainable Products, Brands, and Enjoy Exclusive Discounts on Luxury Goods, and Much More only on Our Platform.</p>
       </div>
       
       <div className="shop-cards">
         <div className="shop-card">
           <div className="card-text">
             <h2>SUSTAINABLE</h2>
-            <p>Our sustainable e-commerce platform offers a curated selection of eco-friendly products, from fashion to everyday essentials. Discover brands committed to sustainability, reduce your carbon footprint, and shop with a purpose. Join us in making a positive impact</p>
+            <div className="card-description">
+              {!showSustainableText ? (
+                <pre><p>Our sustainable e-commerce <br />
+                platform offers curated <br />
+                selection of eco-friendly...</p></pre>
+              ) : (
+                <p>{sustainableText}</p>
+              )}
+              <button 
+                className="read-more-btn" 
+                onClick={() => setShowSustainableText(!showSustainableText)}
+              >
+                {showSustainableText ? 'Read Less ↑' : 'Read More ↓'}
+              </button>
+            </div>
             <button className="coming-soon-btn">Coming Soon</button>
           </div>
-          <div className="shop-card-image">
-            <img src={shopSustainableImage} alt="Sustainable Fashion" />
+          <div className="shop-card-image" >
+            <img src={shopSustainableImage} alt="Sustainable Fashion" id="shop-sustainable-image" />
           </div>
         </div>
 
         <div className="shop-card">
           <div className="card-text">
             <h2>LUXURY</h2>
-            <p>Our luxury e-commerce platform offers a curated selection of the finest luxury products with exclusive discounts. From timeless pieces to everyday luxury, only on our platform.</p>
+            <div className="card-description">
+              {!showLuxuryText ? (
+                <pre><p>Our luxury e-commerce <br />
+                platform offers curated <br />
+                selection of finest...</p></pre>
+              ) : (
+                <p>{luxuryText}</p>
+              )}
+              <button 
+                className="read-more-btn" 
+                onClick={() => setShowLuxuryText(!showLuxuryText)}
+              >
+                {showLuxuryText ? 'Read Less ↑' : 'Read More ↓'}
+              </button>
+            </div>
             <button className="coming-soon-btn">Coming Soon</button>
           </div>
           <div className="shop-card-image">
-            <img src={shopLuxuryImage} alt="Luxury Fashion" />
+            <img src={shopLuxuryImage} alt="Luxury Fashion" id="shop-luxury-image" />
           </div>
         </div>
       </div>
