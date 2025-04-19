@@ -4,6 +4,21 @@ const { EmailClient } = require("@azure/communication-email");
 module.exports = async function (context, req) {
     context.log('🔵 Starting newsletter subscription process');
 
+    // Handle CORS preflight requests
+    if (req.method === 'OPTIONS') {
+        context.res = {
+            status: 204,
+            headers: {
+                'Access-Control-Allow-Origin': context.req.headers.origin || '*',
+                'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Credentials': 'true',
+                'Access-Control-Max-Age': '86400'
+            }
+        };
+        return;
+    }
+
     try {
         // Get email from request body
         const email = req.body.email;
@@ -13,6 +28,11 @@ module.exports = async function (context, req) {
             context.log('❌ No email provided in the request');
             context.res = {
                 status: 400,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': context.req.headers.origin || '*',
+                    'Access-Control-Allow-Credentials': 'true'
+                },
                 body: { error: "Email is required" }
             };
             return;
@@ -87,7 +107,9 @@ module.exports = async function (context, req) {
         context.res = {
             status: 200,
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': context.req.headers.origin || '*',
+                'Access-Control-Allow-Credentials': 'true'
             },
             body: { message: "Subscription successful! Please check your email to confirm." }
         };
@@ -96,7 +118,9 @@ module.exports = async function (context, req) {
         context.res = {
             status: 500,
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': context.req.headers.origin || '*',
+                'Access-Control-Allow-Credentials': 'true'
             },
             body: { message: "An error occurred while processing your subscription" }
         };

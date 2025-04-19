@@ -1,31 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './NewsletterPopup.css';
-
-// ⬇️ Inserted the function directly here
-async function subscribeToNewsletter(email) {
-  try {
-    const response = await fetch('https://luxuryintaste-bndnffc9hfdweabt.eastus-01.azurewebsites.net/api/subscribe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
-
-    const data = await response.json();
-
-    return {
-      success: response.ok,
-      message: data.message || 'Subscription successful!',
-    };
-  } catch (error) {
-    console.error('Subscription error:', error);
-    return {
-      success: false,
-      message: 'An unexpected error occurred. Please try again later.',
-    };
-  }
-}
+import { api } from '../../utils/api';
 
 const NewsletterPopup = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
@@ -47,12 +22,12 @@ const NewsletterPopup = ({ isOpen, onClose }) => {
     setStatus({ loading: true, message: '', type: '' });
 
     try {
-      const result = await subscribeToNewsletter(email);
+      const response = await api.subscribe(email);
 
-      if (result.success) {
+      if (response.success) {
         setStatus({
           loading: false,
-          message: result.message,
+          message: response.data.message || 'Subscription successful! Please check your email to confirm.',
           type: 'success',
         });
 
@@ -63,7 +38,7 @@ const NewsletterPopup = ({ isOpen, onClose }) => {
       } else {
         setStatus({
           loading: false,
-          message: result.message,
+          message: response.error || 'An error occurred. Please try again.',
           type: 'error',
         });
       }

@@ -4,10 +4,12 @@ import sustainabilityImg from '../../assets/sustainable-fashion-trends.png';
 import luxuryImg from '../../assets/luxury-fashion.png';
 import fashionImg from '../../assets/trendy-fast-fashion.png';
 import sneakerImg from '../../assets/sustainable-group.png';
+import { usePopup } from '../../context/PopupContext';
 
 const Newsletter = () => {
   const scrollContainerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const { openPopup } = usePopup(); // Triggers popup from context
 
   const cards = [
     {
@@ -64,7 +66,7 @@ const Newsletter = () => {
         <p>Subscribe now to receive weekly short updates on fast fashion, luxury fashion, sustainable fashion, and the sneaker market to stay ahead of the curve.</p>
         <div className="cta-buttons">
           <button className="explore-btn">Explore Newsletter</button>
-          <button className="subscribe-btn">Subscribe Now</button>
+          <button className="subscribe-btn" onClick={openPopup}>Subscribe Now</button>
         </div>
       </div>
 
@@ -96,4 +98,4 @@ const Newsletter = () => {
   );
 };
 
-export default Newsletter; 
+export default Newsletter;

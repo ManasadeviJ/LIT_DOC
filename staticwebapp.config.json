@@ -1,0 +1,34 @@
+{
+  "routes": [
+    {
+      "route": "/api/confirm",
+      "methods": ["GET"],
+      "rewrite": "/api/confirm"
+    },
+    {
+      "route": "/api/subscribe",
+      "methods": ["POST"],
+      "rewrite": "/api/subscribe"
+    },
+    {
+      "route": "/*",
+      "serve": "/index.html",
+      "statusCode": 200
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/api/*"]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
+  },
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "https://black-moss-014630a10.6.azurestaticapps.net",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type"
+  }
+} 
