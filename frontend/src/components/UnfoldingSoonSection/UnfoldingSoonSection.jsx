@@ -1,8 +1,8 @@
 import React from 'react';
 import './UnfoldingSoonSection.css';
 import avatarStoreIcon from '../../assets/AvatarStore-icon.svg';
-import socialPlatformIcon from '../../assets/Social-Platform-icon.svg';
-import irIcon from '../../assets/IR-icon.svg';
+import socialPlatformIcon from '../../assets/social-platform-icon.svg';
+import irIcon from '../../assets/ir-icon.svg';
 
 const UnfoldingSoonSection = () => {
   return (
