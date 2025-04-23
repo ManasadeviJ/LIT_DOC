@@ -22,7 +22,7 @@
   text-align: center;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  overflow: visible;
+  overflow: hidden;
   width: 90%;
 }
 
@@ -42,10 +42,12 @@
   color: #FFFFFF;
   line-height: 1.2;
   margin-bottom: 1.25rem;
-  max-width: 80%;
-  padding: 0;
+  max-width: 100%;
+  padding: 0 1rem;
   width: 100%;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .register-interest-subtext {
@@ -83,7 +85,7 @@
 
   .register-interest-main-heading {
     font-size: 2.25rem;
-    max-width: 85%;
+    padding: 0 1.5rem;
   }
 }
 
@@ -100,7 +102,7 @@
 
   .register-interest-main-heading {
     font-size: 2rem;
-    max-width: 90%;
+    padding: 0 1.25rem;
   }
 
   .register-interest-small-heading {
@@ -125,7 +127,7 @@
 
   .register-interest-main-heading {
     font-size: 1.7rem;
-    max-width: 92%;
+    padding: 0 1rem;
     margin-bottom: 1rem;
     line-height: 1.3;
   }
@@ -161,7 +163,7 @@
     font-size: 1.4rem;
     line-height: 1.35;
     margin-bottom: 0.875rem;
-    max-width: 94%;
+    padding: 0 0.875rem;
   }
 
   .register-interest-subtext {
@@ -185,14 +187,13 @@
   }
 
   .register-interest-main-heading {
-    font-size: 1.7rem;
+    font-size: 1.25rem;
     line-height: 1.4;
-    max-width: 96%;
-    padding: 0;
+    padding: 0 0.75rem;
   }
 
   .register-interest-subtext {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     max-width: 94%;
   }
 
@@ -217,10 +218,10 @@
   }
 
   .register-interest-main-heading {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.4;
     margin-bottom: 0.75rem;
-    max-width: 100%;
+    padding: 0 0.625rem;
   }
 
   .register-interest-subtext {

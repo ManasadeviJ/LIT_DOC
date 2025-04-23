@@ -1,6 +1,16 @@
 const { CosmosClient } = require("@azure/cosmos");
 const { EmailClient } = require("@azure/communication-email");
 
+// Define image URLs using public assets
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://black-moss-014630a10.6.azurestaticapps.net';
+const IMAGE_URLS = {
+    logo: `${FRONTEND_URL}/lit-logo.svg`,
+    emailIcon: `${FRONTEND_URL}/images/email-logo.svg`,
+    linkedinIcon: `${FRONTEND_URL}/images/linkedin-logo.svg`,
+    instagramIcon: `${FRONTEND_URL}/images/instagram-logo.svg`,
+    twitterIcon: `${FRONTEND_URL}/images/twitter-logo.svg`
+};
+
 module.exports = async function (context, req) {
     context.log('🔵 Starting newsletter subscription process');
 
@@ -83,13 +93,12 @@ module.exports = async function (context, req) {
         // Initialize Azure Communication Services Email client
         const connectionString = process.env.ACS_CONNECTION_STRING;
         const senderEmail = process.env.EMAIL_SENDER_ADDRESS;
-        const websiteUrl = process.env.FRONTEND_URL || 'https://black-moss-014630a10.6.azurestaticapps.net';
 
         const htmlContent = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #1a1a1a; color: #ffffff;">
                 <!-- LIT Logo -->
                 <div style="text-align: center; margin-bottom: 30px;">
-                    <img src="https://luxuryintaste.blob.core.windows.net/images/lit-logo-white.png" alt="LIT Logo" style="width: 100px; height: auto;">
+                    <img src="${IMAGE_URLS.logo}" alt="LIT Logo" style="width: 100px; height: auto;">
                 </div>
 
                 <!-- Welcome Text -->
@@ -127,17 +136,17 @@ module.exports = async function (context, req) {
                         Follow Us on Socials
                     </p>
                     <div style="display: inline-block;">
-                        <a href="https://linkedin.com/company/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
-                            <img src="https://luxuryintaste.blob.core.windows.net/images/linkedin.png" alt="LinkedIn" style="width: 40px; height: 40px;">
+                        <a href="https://www.linkedin.com/company/luxury-in-taste-lit/" style="text-decoration: none; margin: 0 10px;">
+                            <img src="${IMAGE_URLS.linkedinIcon}" alt="LinkedIn" style="width: 40px; height: 40px;">
                         </a>
-                        <a href="https://instagram.com/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
-                            <img src="https://luxuryintaste.blob.core.windows.net/images/instagram.png" alt="Instagram" style="width: 40px; height: 40px;">
+                        <a href="https://www.instagram.com/luxuryintaste?utm_source=qr&igsh=MTU3NTlmNWdzY25kYw==" style="text-decoration: none; margin: 0 10px;">
+                            <img src="${IMAGE_URLS.instagramIcon}" alt="Instagram" style="width: 40px; height: 40px;">
                         </a>
                         <a href="https://facebook.com/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
-                            <img src="https://luxuryintaste.blob.core.windows.net/images/facebook.png" alt="Facebook" style="width: 40px; height: 40px;">
+                            <img src="${FRONTEND_URL}/images/facebook.png" alt="Facebook" style="width: 40px; height: 40px;">
                         </a>
                         <a href="https://twitter.com/luxuryintaste" style="text-decoration: none; margin: 0 10px;">
-                            <img src="https://luxuryintaste.blob.core.windows.net/images/twitter.png" alt="Twitter" style="width: 40px; height: 40px;">
+                            <img src="${IMAGE_URLS.twitterIcon}" alt="Twitter" style="width: 40px; height: 40px;">
                         </a>
                     </div>
                 </div>

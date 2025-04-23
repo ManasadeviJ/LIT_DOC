@@ -68,15 +68,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-user-image:hover {
+  transform: translate(-50%, -52%);
 }
 
 .testimonial-user-image.female {
   transform: translate(-50%, -55%);
 }
 
+.testimonial-user-image.female:hover {
+  transform: translate(-50%, -60%);
+}
+
 .testimonial-user-image.male {
   transform: translate(-50%, -55%);
   height: 110px;
+}
+
+.testimonial-user-image.male:hover {
+  transform: translate(-50%, -60%);
 }
 
 .profile-svg {
