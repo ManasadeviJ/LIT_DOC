@@ -2,7 +2,7 @@ const { CosmosClient } = require("@azure/cosmos");
 const { EmailClient } = require("@azure/communication-email");
 
 // Define image URLs using public assets
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://black-moss-014630a10.6.azurestaticapps.net';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://www.luxuryintaste.com';
 const IMAGE_URLS = {
     logo: `${FRONTEND_URL}/lit-logo.svg`,
     emailIcon: `${FRONTEND_URL}/images/email-logo.svg`,
