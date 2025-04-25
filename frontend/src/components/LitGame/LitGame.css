@@ -164,6 +164,7 @@
   line-height: 1.2;
   margin-bottom: 1.5rem;
   text-align: left;
+  width: 100%;
 }
 
 .game-info p {
@@ -252,7 +253,7 @@
   }
 
   .lit-game-header {
-    transform: translateX(-109%) translateY(5%);
+    transform: translateX(-119%) translateY(5%);
   }
 
   .game-info h2 {
@@ -282,11 +283,12 @@
   }
 
   .lit-game-header {
-    transform: translateX(-100%) translateY(7%);
+    transform: translateX(-95%) translateY(39%);
   }
 
   .game-info h2 {
     font-size: 3rem;
+    text-align: left;
   }
 
   .game-info p {
@@ -331,7 +333,7 @@
   }
 
   .game-info h2 {
-    text-align: center;
+    text-align: left;
     font-size: 2.8rem;
   }
 
@@ -400,7 +402,8 @@
   }
 
   .game-info h2 {
-    font-size: 2.4rem;
+    font-size: 2rem;
+    text-align: left;
   }
 
   .game-info p {
@@ -465,8 +468,8 @@
   }
 
   .game-info h2 {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    text-align: left;
   }
 
   .play-now-btn {
@@ -514,7 +517,8 @@
   }
 
   .game-info h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    text-align: left;
   }
 
   .card-caption {
@@ -557,7 +561,8 @@
   }
 
   .game-info h2 {
-    font-size: 1.8rem;
+    font-size: 1.25rem;
+    text-align: left;
   }
 
   .game-info p {

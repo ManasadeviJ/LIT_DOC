@@ -21,7 +21,7 @@ const UnfoldingSoonSection = () => {
                 <img src={avatarStoreIcon} alt="Avatar Store Feature" className="vertical-icon" id="avatar-store-icon"/>
               </div>
               <div className="card-back">
-                <p>Offers virtual collections of fast fashion and luxury goods for personalized avatar experience.</p>
+                <p>The Avatar Store offers virtual collections of clothing, shoes, bags, and accessories to style your personalized avatar with flair.</p>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@ const UnfoldingSoonSection = () => {
                 <img src={irIcon} alt="IR Platform Feature" className="vertical-icon" id="ir-platform-icon"/>
               </div>
               <div className="card-back">
-                <p>Effortlessly provides customers with the exact product links of image uploaded.</p>
+                <p>Effortlessly provides users with the exact product links of any image uploaded.</p>
               </div>
             </div>
           </div>

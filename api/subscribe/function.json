@@ -14,7 +14,8 @@
     {
       "type": "http",
       "direction": "out",
-      "name": "res"
+      "name": "res",
+      "statusCode": 200
     }
   ]
 }

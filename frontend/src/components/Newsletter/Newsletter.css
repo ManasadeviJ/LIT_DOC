@@ -207,25 +207,32 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: radial-gradient(circle, rgba(75, 0, 130, 0.7), rgba(0, 0, 0, 0.7));
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: transparent;
+  opacity: 0.5;
   color: #FFFFFF;
+  border-color: transparent;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
   z-index: 2;
   font-size: 1.5rem;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
-.scroll-btn:hover {
-  box-shadow: 0 0 30px rgba(147, 51, 234, 0.5);
-  transform: translateY(-50%) scale(1.05);
+.scroll-btn:hover,
+.scroll-btn:focus {
+  border-color: transparent;
+  opacity: 0.5;
+  outline: none;
+}
+
+.scroll-btn:active {
+  border-color: transparent;
+  opacity: 0.5;
+  outline: none;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
 }
 
 .scroll-btn.left {
@@ -398,7 +405,7 @@
   }
 
   .newsletter-header {
-    text-align: center;
+    text-align: left;
   }
 
   .newsletter-header h2 {
@@ -433,7 +440,7 @@
   }
 
   .cta-buttons {
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0.8rem;
   }
 
