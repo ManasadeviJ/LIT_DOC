@@ -30,7 +30,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "frontend" # Path to your app's source code
           api_location: "api" # Path to your API code (optional, leave empty if you don't have an API)
-          output_location: "dist" # Path to the built app's output directory
+          output_location: "frontend/dist" # Path to the built app's output directory
           app_build_command: "npm install && npm run build"
           ###### End of Repository/Build Configurations ######
 
