@@ -1,10 +1,10 @@
 export const API_CONFIG = {
-  // Azure Function App URL
-  BASE_URL: 'https://luxuryintaste-bndnffc9hfdweabt.eastus-01.azurewebsites.net',
+  // Local Backend URL for development
+  BASE_URL: 'http://localhost:3000',
   ENDPOINTS: {
-    SUBSCRIBE: '/api/subscribe',
-    CONFIRM: '/api/confirm'
+    SUBSCRIBE: '/api/newsletter/subscribe',
+    CONFIRM: '/api/newsletter/confirm'
   },
-  // Frontend URL for confirmation emails
-  FRONTEND_URL: 'https://black-moss-014630a10.6.azurestaticapps.net'
+  // Frontend URL for confirmation emails (only needed for deployed environments)
+  // FRONTEND_URL: 'https://black-moss-014630a10.6.azurestaticapps.net'
 }; 

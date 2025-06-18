@@ -4,12 +4,48 @@ import sustainabilityImg from '../../assets/sustainable-fashion-trends.png';
 import luxuryImg from '../../assets/luxury-fashion.png';
 import fashionImg from '../../assets/trendy-fast-fashion.png';
 import sneakerImg from '../../assets/sustainable-group.png';
-import { usePopup } from '../../context/PopupContext';
 
 const Newsletter = () => {
   const scrollContainerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const { openPopup } = usePopup(); // Triggers popup from context
+
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    setMessage(''); // Clear previous messages
+    setMessageType('');
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/newsletter/subscribe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(data.message);
+        setMessageType('success');
+        setEmail(''); // Clear email input on success
+      } else {
+        setMessage(data.message || 'Subscription failed.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Frontend newsletter subscription error:', error);
+      setMessage('An error occurred. Please try again later.');
+      setMessageType('error');
+    }
+  };
 
   const cards = [
     {
@@ -66,8 +102,25 @@ const Newsletter = () => {
         <p>Subscribe now to receive weekly short updates on fast fashion, luxury fashion, sustainable fashion, and the sneaker market to stay ahead of the curve.</p>
         <div className="cta-buttons">
           <button className="explore-btn">Explore Newsletter</button>
-          <button className="subscribe-btn" onClick={openPopup}>Subscribe Now</button>
+          <form className="subscribe-form-newsletter" onSubmit={handleSubscribe}>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="subscribe-input-newsletter"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit" className="subscribe-button-newsletter">
+              Subscribe Now
+            </button>
+          </form>
         </div>
+        {message && (
+          <p className={`subscription-message ${messageType === 'success' ? 'success' : 'error'}`}>
+            {message}
+          </p>
+        )}
       </div>
 
       <div className="newsletter-slider">

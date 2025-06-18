@@ -6,7 +6,10 @@
     "start": "func start",
     "test": "echo \"No tests specified\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "nodemailer": "^7.0.3",
+    "razorpay": "^2.9.6"
+  },
   "devDependencies": {
     "@azure/functions": "^3.5.1"
   },

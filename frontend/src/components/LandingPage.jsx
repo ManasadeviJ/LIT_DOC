@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from './Navbar/Navbar';
 import JoinCommunity from './JoinCommunity/JoinCommunity';
 import Background from './Background/Background';
 import LitGame from './LitGame/LitGame';
@@ -8,13 +7,11 @@ import Shop from './Shop/Shop';
 import UnfoldingSoonSection from './UnfoldingSoonSection/UnfoldingSoonSection';
 import Testimonials from './Testimonials/Testimonials';
 import RegisterInterest from './RegisterInterest/RegisterInterest';
-import Footer from './Footer/Footer';
 import './LandingPage.css';
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
-      <Navbar />
       <JoinCommunity />
       <Background>
         <LitGame />
@@ -23,7 +20,6 @@ const LandingPage = () => {
         <UnfoldingSoonSection />
         <Testimonials />
         <RegisterInterest />
-        <Footer />
       </Background>
     </div>
   );

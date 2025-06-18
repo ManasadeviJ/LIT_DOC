@@ -1,46 +1,40 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import NewsletterPopup from '../components/Newsletter/NewsletterPopup';
+import React, { createContext, useContext, useState } from 'react';
 
-// Create the context
 const PopupContext = createContext();
 
-// Custom hook to use the popup context
-export const usePopup = () => useContext(PopupContext);
-
-// Provider component
 export const PopupProvider = ({ children }) => {
-  const [showPopup, setShowPopup] = useState(false);
+  const [popup, setPopup] = useState({
+    open: false,
+    message: '',
+    severity: 'info', // 'success', 'error', 'warning', 'info'
+  });
 
-  // Show popup after 3 seconds on first visit
-  useEffect(() => {
-    const hasSeenPopup = localStorage.getItem('hasSeenNewsletterPopup');
-    
-    if (!hasSeenPopup) {
-      const timer = setTimeout(() => {
-        setShowPopup(true);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  // Function to open the popup
-  const openPopup = () => {
-    setShowPopup(true);
+  const showPopup = (message, severity = 'info') => {
+    setPopup({
+      open: true,
+      message,
+      severity,
+    });
   };
 
-  // Function to close the popup
-  const closePopup = () => {
-    setShowPopup(false);
-    localStorage.setItem('hasSeenNewsletterPopup', 'true');
+  const hidePopup = () => {
+    setPopup((prev) => ({
+      ...prev,
+      open: false,
+    }));
   };
 
   return (
-    <PopupContext.Provider value={{ openPopup, closePopup }}>
+    <PopupContext.Provider value={{ popup, showPopup, hidePopup }}>
       {children}
-      <NewsletterPopup isOpen={showPopup} onClose={closePopup} />
     </PopupContext.Provider>
   );
 };
 
-export default PopupContext; 
+export const usePopup = () => {
+  const context = useContext(PopupContext);
+  if (!context) {
+    throw new Error('usePopup must be used within a PopupProvider');
+  }
+  return context;
+}; 
