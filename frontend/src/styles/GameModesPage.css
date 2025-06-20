@@ -174,11 +174,11 @@
 
 /* --- Overlay Card Layout for Game Modes (Original Design) --- */
 .game-modes-list {
-  display: flex;
-  gap: 18px;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 32px;
+  justify-items: center;
 }
 
 .game-mode-card {
@@ -359,6 +359,18 @@
 }
 
 @media (max-width: 480px) {
+  .game-modes-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .game-modes-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
   .game-modes-list {
     grid-template-columns: 1fr;
   }
