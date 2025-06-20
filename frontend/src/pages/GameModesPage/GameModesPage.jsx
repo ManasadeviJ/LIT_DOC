@@ -121,31 +121,17 @@ const GameModes = () => {
           </div>
 
           {/* Game Mode Cards */}
-          <div className="game-modes-grid">
-            <div className="category-section">
-              <div className="filter">
-                <select>
-                  <option>Category ▼</option>
-                  <option>All</option>
-                  <option>New</option>
-                  <option>Popular</option>
-                </select>
-              </div>
-            </div>
-            <div className="cards-section">
-              {gameModes.map(mode => (
-                <div key={mode.id} className="game-mode-card">
-                  <div className="card-image">
-                    <img src={mode.image} alt={mode.title} />
-                  </div>
-                  <div className="card-content">
-                    <h3>{mode.title}</h3>
-                    <p>{mode.description}</p>
-                  </div>
+          <div className="game-modes-list">
+            {gameModes.map(mode => (
+              <div key={mode.id} className="game-mode-card" style={{ backgroundImage: `url(${mode.image})` }}>
+                <div className="game-mode-gradient"></div>
+                <div className="game-mode-info">
+                  <h3 className="game-mode-title">{mode.title}</h3>
+                  <p className="game-mode-description">{mode.description}</p>
                   <button className="play-now-btn">Play Now</button>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
 
           {/* Leaderboard */}

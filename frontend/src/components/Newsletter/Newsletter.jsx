@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './Newsletter.css';
 import sustainabilityImg from '../../assets/sustainable-fashion-trends.png';
 import luxuryImg from '../../assets/luxury-fashion.png';
@@ -6,18 +6,15 @@ import fashionImg from '../../assets/trendy-fast-fashion.png';
 import sneakerImg from '../../assets/sustainable-group.png';
 
 const Newsletter = () => {
-  const scrollContainerRef = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
-
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+  const [messageType, setMessageType] = useState('');
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    setMessage(''); // Clear previous messages
+    setMessage('');
     setMessageType('');
-
     try {
       const response = await fetch(`http://localhost:3000/api/newsletter/subscribe`, {
         method: 'POST',
@@ -29,19 +26,16 @@ const Newsletter = () => {
         credentials: 'include',
         body: JSON.stringify({ email }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         setMessage(data.message);
         setMessageType('success');
-        setEmail(''); // Clear email input on success
+        setEmail('');
       } else {
         setMessage(data.message || 'Subscription failed.');
         setMessageType('error');
       }
     } catch (error) {
-      console.error('Frontend newsletter subscription error:', error);
       setMessage('An error occurred. Please try again later.');
       setMessageType('error');
     }
@@ -75,79 +69,56 @@ const Newsletter = () => {
   ];
 
   const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const cardWidth = container.offsetWidth;
-      const newPosition = Math.max(scrollPosition - cardWidth, 0);
-      container.scrollTo({ left: newPosition, behavior: 'smooth' });
-      setScrollPosition(newPosition);
-    }
+    setCurrentIndex((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
   };
 
   const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const cardWidth = container.offsetWidth;
-      const maxScroll = container.scrollWidth - container.offsetWidth;
-      const newPosition = Math.min(scrollPosition + cardWidth, maxScroll);
-      container.scrollTo({ left: newPosition, behavior: 'smooth' });
-      setScrollPosition(newPosition);
-    }
+    setCurrentIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
   };
 
   return (
-    <div className="newsletter-container">
-      <div className="newsletter-header">
+    <section className="newsletter-luxury-section">
+      <div className="newsletter-luxury-header">
         <h2>Newsletter</h2>
         <p>Subscribe now to receive weekly short updates on fast fashion, luxury fashion, sustainable fashion, and the sneaker market to stay ahead of the curve.</p>
-        <div className="cta-buttons">
-          <button className="explore-btn">Explore Newsletter</button>
-          <form className="subscribe-form-newsletter" onSubmit={handleSubscribe}>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="subscribe-input-newsletter"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button type="submit" className="subscribe-button-newsletter">
-              Subscribe Now
-            </button>
-          </form>
-        </div>
+        <form className="newsletter-luxury-form" onSubmit={handleSubscribe}>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="newsletter-luxury-input"
+          />
+          <button type="submit" className="newsletter-luxury-btn">Subscribe</button>
+        </form>
         {message && (
-          <p className={`subscription-message ${messageType === 'success' ? 'success' : 'error'}`}>
-            {message}
-          </p>
+          <p className={`newsletter-luxury-message ${messageType}`}>{message}</p>
         )}
       </div>
-
-      <div className="newsletter-slider">
-        <button className="scroll-btn left" onClick={scrollLeft}>
-          <span>‹</span>
-        </button>
-        
-        <div className="cards-container" ref={scrollContainerRef}>
-          {cards.map((card) => (
-            <div key={card.id} className="newsletter-card">
-              <div className="card-image">
+      <div className="newsletter-luxury-slider">
+        <button className="luxury-slider-arrow left" onClick={scrollLeft} aria-label="Scroll left">&#8249;</button>
+        <div className="luxury-slider-cards">
+          {cards.map((card, idx) => (
+            <div
+              key={card.id}
+              className={`luxury-slider-card${idx === currentIndex ? ' active' : ''}`}
+              style={{ transform: `translateX(${(idx - currentIndex) * 100}%)` }}
+            >
+              <div className="luxury-slider-img-wrap">
                 <img src={card.image} alt={card.title} />
               </div>
-              <div className="card-content">
+              <div className="luxury-slider-content">
                 <h3>{card.title}</h3>
                 <p>{card.description}</p>
-                <button className="learn-more-btn">Learn more  <span>›</span></button>
+                <button className="luxury-learn-more">Learn more &#8250;</button>
               </div>
             </div>
           ))}
         </div>
-
-        <button className="scroll-btn right" onClick={scrollRight}>
-          <span>›</span>
-        </button>
+        <button className="luxury-slider-arrow right" onClick={scrollRight} aria-label="Scroll right">&#8250;</button>
       </div>
-    </div>
+    </section>
   );
 };
 

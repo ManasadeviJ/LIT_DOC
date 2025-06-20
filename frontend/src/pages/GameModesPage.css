@@ -155,95 +155,98 @@
   cursor: pointer;
 }
 
-/* Game Modes Grid */
-.game-modes-grid {
+/* Remove old grid and split layout styles */
+.cards-section, .game-modes-grid, .card-image, .card-content {
+  display: none !important;
+}
+
+/* Only keep the new vertical card layout */
+.game-modes-list {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 15px;
-  padding: 20px;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
 }
 
-.category-section {
-  width: 100%;
-}
-
-.cards-section {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
+/* --- FORCE GAME MODES CARD OVERLAY LAYOUT --- */
 .game-mode-card {
-  position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 15px;
-  padding: 0;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  width: 320px !important;
+  height: 340px !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.game-mode-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--neon-glow);
+.game-mode-gradient {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 55% !important;
+  background: linear-gradient(180deg, rgba(24,24,24,0.1) 0%, rgba(24,24,24,0.9) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
 }
 
-.card-image {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
+.game-mode-info {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  z-index: 2 !important;
+  padding: 24px 20px 20px 20px !important;
+  color: #fff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  background: none !important;
 }
 
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.game-mode-title {
+  color: #a084e8 !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
 }
 
-.card-content {
-  padding: 7px;
-  margin-bottom: 13px;
-}
-
-.game-mode-card h3 {
-  color: var(--primary-purple);
-  margin-bottom: 15px;
-  font-size: 1rem;
-  text-align: left;
-}
-
-.game-mode-card p {
-  color: white;
-  font-size: 0.9rem;
-  margin-bottom: 25px;
-  text-align: left;
+.game-mode-description {
+  color: #fff !important;
+  font-size: 1rem !important;
+  margin-bottom: 18px !important;
 }
 
 .play-now-btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 0 0 8px 8px;
-  background: radial-gradient(309.68% 308.36% at 53.98% 55.95%, rgba(0, 0, 0, 0.80) 0%, rgba(147, 51, 234, 0.40) 50%);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
+  margin-top: 18px !important;
+  width: 100% !important;
+  padding: 12px 0 !important;
+  border-radius: 12px !important;
+  background: linear-gradient(90deg, #9333ea 0%, #d381df 100%) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  border: none !important;
+  font-size: 1.1rem !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
 }
 
 .play-now-btn:hover {
-  box-shadow: var(--neon-glow);
-  transform: scale(1.05);
+  background: linear-gradient(90deg, #d381df 0%, #9333ea 100%) !important;
+  box-shadow: 0 4px 18px 0 rgba(147, 51, 234, 0.18) !important;
 }
+
+.game-mode-image { display: none !important; }
 
 /* Leaderboard Styles */
 .leaderboard-section {
@@ -325,7 +328,7 @@
     justify-content: center;
   }
 
-  .game-modes-grid {
+  .game-modes-list {
     grid-template-columns: 1fr;
   }
 } 

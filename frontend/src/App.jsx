@@ -16,7 +16,7 @@ import LandingPage from './components/LandingPage';
 import SearchBar from './components/SearchBar';
 import CategoryCards from './components/CategoryCards';
 import FilterBar from './components/FilterBar';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
 
 // Pages
 import Home from './pages/Home';

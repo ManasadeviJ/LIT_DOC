@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import singleModeImage from '../assets/single-mode.png';
-import tournamentModeImage from '../assets/tournament-mode.png';
-import teamBattleImage from '../assets/team-battle.png';
-import fashionShowdownImage from '../assets/fashion-showdown.png';
-import '../styles/GameModesPage.css';
+import './GameModesPage.css';
+import bodyBg from '../assets/body-bg.png';
 
-const GameModesPage = () => {
+const GameModes = () => {
   const [activeTab, setActiveTab] = useState('clothing');
   const [notifications] = useState([
     {
@@ -28,25 +24,25 @@ const GameModesPage = () => {
       id: 1,
       title: 'Single Mode',
       description: 'Normal game mode with two options',
-      image: singleModeImage
+      image: '/images/game-modes/single-mode.png'
     },
     {
       id: 2,
       title: 'Tournament Mode',
       description: '8 players facing off in elimination',
-      image: tournamentModeImage
+      image: '/images/game-modes/tournament-mode.png'
     },
     {
       id: 3,
       title: 'Team Battle',
       description: 'Team up with your friends',
-      image: teamBattleImage
+      image: '/images/game-modes/team-battle.png'
     },
     {
       id: 4,
       title: 'Fashion Showdown',
       description: 'Among 6, one wins based on fashion',
-      image: fashionShowdownImage
+      image: '/images/game-modes/fashion-showdown.png'
     }
   ];
 
@@ -59,7 +55,7 @@ const GameModesPage = () => {
   ];
 
   return (
-    <div className="game-modes-page">
+    <div className="game-modes-page" style={{ backgroundImage: `url(${bodyBg})`, backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
       <div className="game-modes-container">
         {/* Left Sidebar */}
         <div className="sidebar">
@@ -68,13 +64,10 @@ const GameModesPage = () => {
             <ul>
               <li className="active">Game Mode</li>
               <li>Tournaments</li>
-              <li>
-                <Link to="/shop" className="menu-link">Shop</Link>
-              </li>
+              <li>Shop</li>
               <li>Friends</li>
             </ul>
           </div>
-
           <div className="notifications">
             <h3>Recent Notifications</h3>
             {notifications.map(notification => (
@@ -91,7 +84,6 @@ const GameModesPage = () => {
             ))}
           </div>
         </div>
-
         {/* Main Content */}
         <div className="main-content">
           {/* Tabs */}
@@ -123,35 +115,19 @@ const GameModesPage = () => {
               </button>
             </div>
           </div>
-
-          {/* Game Mode Cards */}
-          <div className="game-modes-grid">
-            <div className="category-section">
-              <div className="filter">
-                <select>
-                  <option>Category ▼</option>
-                  <option>All</option>
-                  <option>New</option>
-                  <option>Popular</option>
-                </select>
-              </div>
-            </div>
-            <div className="cards-section">
-              {gameModes.map(mode => (
-                <div key={mode.id} className="game-mode-card">
-                  <div className="card-image">
-                    <img src={mode.image} alt={mode.title} />
-                  </div>
-                  <div className="card-content">
-                    <h3>{mode.title}</h3>
-                    <p>{mode.description}</p>
-                  </div>
+          {/* Game Mode Cards - Overlay Layout */}
+          <div className="game-modes-list">
+            {gameModes.map(mode => (
+              <div key={mode.id} className="game-mode-card" style={{ backgroundImage: `url(${mode.image})` }}>
+                <div className="game-mode-gradient"></div>
+                <div className="game-mode-info">
+                  <h3 className="game-mode-title">{mode.title}</h3>
+                  <p className="game-mode-description">{mode.description}</p>
                   <button className="play-now-btn">Play Now</button>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-
           {/* Leaderboard */}
           <div className="leaderboard-section">
             <div className="leaderboard-header">
@@ -179,4 +155,4 @@ const GameModesPage = () => {
   );
 };
 
-export default GameModesPage; 
+export default GameModes; 

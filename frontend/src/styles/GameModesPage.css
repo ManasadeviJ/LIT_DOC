@@ -4,7 +4,7 @@
   --primary-purple: #8A2BE2;
   --secondary-purple: #9370DB;
   --neon-glow: 0 0 10px rgba(138, 43, 226, 0.5);
-  --glass-bg: rgba(255, 255, 255, 0.05); /* Slightly more subtle glass */
+  --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
 }
 
@@ -39,12 +39,12 @@
   border-radius: 15px;
   padding: 20px;
   margin-bottom: 20px;
-  backdrop-filter: blur(10px); /* Add blur for glass effect */
-  border: 1px solid var(--glass-border); /* Add border for glass effect */
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
 }
 
 .quick-menu h3 {
-  color: var(--primary-purple); /* Purple for header */
+  color: var(--primary-purple);
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
@@ -62,16 +62,8 @@
   transition: all 0.3s ease;
 }
 
-.quick-menu li .menu-link {
-  display: block;
-  width: 100%;
-  height: 100%;
-  color: inherit;
-  text-decoration: none;
-}
-
 .quick-menu li:hover {
-  background: rgba(255, 255, 255, 0.1); /* Slightly more visible hover */
+  background: var(--glass-bg);
 }
 
 .quick-menu li.active {
@@ -81,8 +73,16 @@
   font-weight: 500;
 }
 
-.recent-notifications h3 { /* Selector for Recent Notifications header */
-  color: var(--primary-purple); /* Purple for header */
+.notifications {
+  background: var(--glass-bg);
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+}
+
+.notifications h3 {
+  color: var(--primary-purple);
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
@@ -92,8 +92,8 @@
   border-radius: 10px;
   padding: 15px;
   margin-bottom: 10px;
-  backdrop-filter: blur(10px); /* Add blur for glass effect */
-  border: 1px solid var(--glass-border); /* Add border for glass effect */
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
 }
 
 .notification-buttons {
@@ -143,7 +143,7 @@
   padding: 8px 15px;
   border: none;
   border-radius: 8px;
-  background: radial-gradient(309.68% 308.36% at 53.98% 55.95%, rgba(0, 0, 0, 0.80) 0%, rgba(147, 51, 234, 0.40) 50%); /* Purple gradient */
+  background: radial-gradient(309.68% 308.36% at 53.98% 55.95%, rgba(0, 0, 0, 0.80) 0%, rgba(147, 51, 234, 0.40) 50%);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: white;
   cursor: pointer;
@@ -170,101 +170,102 @@
   background: var(--glass-bg);
   color: white;
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
 }
 
-/* Game Modes Grid */
-.game-modes-grid {
+/* --- Overlay Card Layout for Game Modes (Original Design) --- */
+.game-modes-list {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 15px;
-  padding: 20px;
-}
-
-.category-section {
-  width: 100%;
-}
-
-.cards-section {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 18px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 18px;
 }
 
 .game-mode-card {
-  position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 15px;
-  padding: 0;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  width: 240px !important;
+  height: 270px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10) !important;
+  transition: box-shadow 0.18s;
 }
 
 .game-mode-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--neon-glow);
+  box-shadow: 0 4px 18px 0 rgba(147, 51, 234, 0.18) !important;
 }
 
-.card-image {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
+.game-mode-gradient {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 48% !important;
+  background: linear-gradient(180deg, rgba(24,24,24,0.05) 0%, rgba(24,24,24,0.82) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
 }
 
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.game-mode-info {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  z-index: 2 !important;
+  padding: 14px 14px 12px 14px !important;
+  color: #fff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  background: none !important;
 }
 
-.card-content {
-  padding: 15px; /* Increased padding */
-  margin-bottom: 0; /* Removed margin-bottom */
+.game-mode-title {
+  color: #a084e8 !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+  line-height: 1.1 !important;
 }
 
-.game-mode-card h3 {
-  color: var(--primary-purple); /* Purple for card title */
-  margin-bottom: 10px; /* Adjusted margin */
-  font-size: 1.1rem; /* Slightly larger font */
-  text-align: left;
-}
-
-.game-mode-card p {
-  color: white;
-  font-size: 0.9rem;
-  margin-bottom: 15px; /* Adjusted margin */
-  text-align: left;
+.game-mode-description {
+  color: #fff !important;
+  font-size: 0.92rem !important;
+  margin-bottom: 10px !important;
+  line-height: 1.2 !important;
 }
 
 .play-now-btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 0 0 15px 15px; /* Rounded bottom corners to match card */
-  background: radial-gradient(309.68% 308.36% at 53.98% 55.95%, rgba(0, 0, 0, 0.80) 0%, rgba(147, 51, 234, 0.40) 50%);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  font-weight: 600; /* Make text bolder */
-  text-transform: uppercase; /* Uppercase for consistency */
+  margin-top: 0 !important;
+  width: 100% !important;
+  padding: 8px 0 !important;
+  border-radius: 8px !important;
+  background: linear-gradient(90deg, #9333ea 0%, #d381df 100%) !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+  border: none !important;
+  font-size: 0.98rem !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+  box-shadow: none !important;
 }
 
 .play-now-btn:hover {
-  box-shadow: var(--neon-glow);
-  transform: scale(1.02); /* Slightly less aggressive scale on hover */
+  background: linear-gradient(90deg, #d381df 0%, #9333ea 100%) !important;
 }
+
+/* Remove old split/grid/card-image/card-content styles */
+.card-image, .card-content, .cards-section, .game-modes-grid { display: none !important; }
 
 /* Leaderboard Styles */
 .leaderboard-section {
@@ -291,72 +292,53 @@
   padding: 8px 15px;
   border: none;
   border-radius: 8px;
-  background: radial-gradient(309.68% 308.36% at 53.98% 55.95%, rgba(0, 0, 0, 0.80) 0%, rgba(147, 51, 234, 0.40) 50%);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background: var(--glass-bg);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
 }
 
 .view-all-btn:hover {
-  transform: scale(1.05);
+  background: var(--primary-purple);
   box-shadow: var(--neon-glow);
 }
 
 .leaderboard-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.leaderboard-item:last-child {
-  border-bottom: none;
+  padding: 10px;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .rank {
-  font-weight: 600;
-  color: var(--primary-purple); /* Purple for rank */
-  width: 30px;
+  color: var(--primary-purple);
+  font-weight: bold;
+  margin-right: 15px;
 }
 
 .player-info {
-  display: flex;
-  align-items: center;
   flex: 1;
-}
-
-.player-info img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.username {
-  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .coins {
   display: flex;
   align-items: center;
-  color: #FFD700; /* Gold color for coins */
-  font-weight: 500;
+  gap: 5px;
 }
 
 .coins img {
   width: 20px;
   height: 20px;
-  margin-left: 5px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .game-modes-container {
     flex-direction: column;
-    padding: 10px;
+    padding: 1rem;
   }
 
   .sidebar {
@@ -364,24 +346,20 @@
   }
 
   .content-header {
-    padding: 10px;
+    padding: 0;
   }
 
   .tabs {
     justify-content: center;
   }
 
-  .game-modes-grid {
-    padding: 10px;
-  }
-
-  .cards-section {
-    grid-template-columns: repeat(2, 1fr);
+  .game-modes-list {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
-  .cards-section {
+  .game-modes-list {
     grid-template-columns: 1fr;
   }
 }
