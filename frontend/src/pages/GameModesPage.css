@@ -162,11 +162,23 @@
 
 /* Only keep the new vertical card layout */
 .game-modes-list {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   margin-top: 32px;
+  justify-items: center;
+}
+
+@media (max-width: 1024px) {
+  .game-modes-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .game-modes-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --- FORCE GAME MODES CARD OVERLAY LAYOUT --- */
@@ -176,8 +188,8 @@
   flex-direction: column !important;
   justify-content: flex-end !important;
   align-items: flex-start !important;
-  width: 320px !important;
-  height: 340px !important;
+  width: 240px !important;
+  height: 270px !important;
   border-radius: 20px !important;
   overflow: hidden !important;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18) !important;
