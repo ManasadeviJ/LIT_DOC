@@ -2,8 +2,10 @@ import React from 'react';
 import './LitGame.css';
 import purpleShoe from '../../assets/purple-shoe.svg';
 import blueShoe from '../../assets/blue-shoe.svg';
+import { useNavigate } from 'react-router-dom';
 
 const LitGame = () => {
+  const navigate = useNavigate();
   return (
     <div className="lit-game-container">
       <div className="game-section">
@@ -38,7 +40,7 @@ const LitGame = () => {
               LIT Game tests your skills in spotting luxury from alternatives. 
               Can you tell the difference? Challenge yourself and your friends today!
             </p>
-            <button className="play-now-btn">Play Now</button>
+            <button className="play-now-btn" onClick={() => navigate('/game')}>Play Now</button>
           </div>
         </div>
       </div>
