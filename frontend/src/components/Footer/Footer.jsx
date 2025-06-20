@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Footer.css';
 import logo from '../../assets/lit-logo.png';
 import emailIcon from '../../assets/email-logo.svg';
@@ -7,6 +7,37 @@ import instagramIcon from '../../assets/instagram-logo.svg';
 import twitterIcon from '../../assets/twitter-logo.svg';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    setMessageType('');
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setMessage('Subscribed successfully! Please check your email.');
+        setMessageType('success');
+        setEmail('');
+      } else {
+        setMessage(data.error || 'Subscription failed.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      setMessage('An error occurred. Please try again later.');
+      setMessageType('error');
+    }
+  };
+
   return (
     <footer className="footer-container">
       <div className="footer-content">
@@ -31,13 +62,21 @@ const Footer = () => {
           <div className="footer-join-section">
             <h3>Join our Community</h3>
             <div className="footer-email-container">
-              <input 
-                type="email" 
-                placeholder="Enter Your Email" 
-                className="footer-email-input"
-              />
-              <button className="footer-subscribe-btn">Subscribe</button>
+              <form onSubmit={handleSubscribe} style={{ display: 'flex', width: '100%' }}>
+                <input 
+                  type="email" 
+                  placeholder="Enter Your Email" 
+                  className="footer-email-input"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
+                />
+                <button type="submit" className="footer-subscribe-btn">Subscribe</button>
+              </form>
             </div>
+            {message && (
+              <div className={`footer-subscribe-message ${messageType}`}>{message}</div>
+            )}
           </div>
 
           {/* Contact Links */}
