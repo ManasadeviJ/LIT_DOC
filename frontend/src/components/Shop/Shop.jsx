@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Shop.css';
 import shopSustainableImage from '../../assets/shop-section-girl.jpg';
 import shopLuxuryImage from '../../assets/shop-section-man.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const Shop = () => {
   const [showSustainableText, setShowSustainableText] = useState(false);
@@ -9,6 +10,7 @@ const Shop = () => {
 
   const sustainableText = "Our sustainable e-commerce platform offers a curated selection of eco-friendly products, from fashion to everyday essentials. Discover brands committed to sustainability, reduce your carbon footprint, and shop with a purpose. Join us in making a positive impact";
   const luxuryText = "Our luxury e-commerce platform offers a curated selection of the finest luxury products with exclusive discounts. From timeless pieces to everyday luxury, only on our platform.";
+  const navigate = useNavigate();
 
   return (
     <section className="shop-container">
@@ -36,7 +38,7 @@ const Shop = () => {
                 {showSustainableText ? 'Read Less ↑' : 'Read More ↓'}
               </button>
             </div>
-            <button className="coming-soon-btn">Coming Soon</button>
+            <button className="coming-soon-btn" onClick={() => navigate('/shop')}>Shop Now</button>
           </div>
           <div className="shop-card-image" >
             <img src={shopSustainableImage} alt="Sustainable Fashion" id="shop-sustainable-image" />
@@ -61,7 +63,7 @@ const Shop = () => {
                 {showLuxuryText ? 'Read Less ↑' : 'Read More ↓'}
               </button>
             </div>
-            <button className="coming-soon-btn">Coming Soon</button>
+            <button className="coming-soon-btn" onClick={() => navigate('/shop')}>Shop Now</button>
           </div>
           <div className="shop-card-image">
             <img src={shopLuxuryImage} alt="Luxury Fashion" id="shop-luxury-image" />
