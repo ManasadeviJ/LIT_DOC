@@ -178,11 +178,11 @@
 }
 
 .game-modes-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 32px;
-  justify-content: center;
-  flex-wrap: wrap;
   margin-top: 32px;
+  justify-items: center;
 }
 
 .game-modes-list > .game-mode-card {
@@ -333,6 +333,18 @@
   }
 
   .game-modes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .game-modes-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .game-modes-list {
     grid-template-columns: 1fr;
   }
 }
