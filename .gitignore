@@ -97,8 +97,12 @@ jspm_packages/
 .nuxt
 
 # Gatsby files
-.cache/
-public
+# .cache/
+# public
+
+# Allow images for Vercel deployment
+!frontend/public/images/
+!frontend/public/images/game-modes/
 
 # Storybook build outputs
 .out
