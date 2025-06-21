@@ -80,7 +80,12 @@ const Navbar = () => {
       anchor='right'
       open={mobileMenuOpen}
       onClose={toggleMobileMenu}
-      sx={{ '.MuiDrawer-paper': { backgroundColor: '#1A1A1A', color: 'white' } }}
+      sx={{ '.MuiDrawer-paper': { 
+          backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+          backdropFilter: 'blur(10px)',
+          color: 'white' 
+        } 
+      }}
     >
       <Box sx={{ width: 250 }}>
         <List>
@@ -142,18 +147,28 @@ const Navbar = () => {
       <Toolbar sx={{
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '0 0 0 2rem',
+        padding: isMobile ? '0 1rem' : '0 2rem',
         minHeight: '60px !important'
       }}>
         {isMobile ? (
           <>
-            <IconButton
-              color="inherit"
-              onClick={toggleMobileMenu}
-              sx={{ color: 'white' }}
-            >
-              <MenuIcon />
-            </IconButton>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+              <RouterLink to="/">
+                <img src={logoImage} alt="Logo" style={{ height: '32px', width: 'auto' }} />
+              </RouterLink>
+              <Box>
+                <IconButton color="inherit" component={RouterLink} to="/profile">
+                  <img src={profileAvatar} alt="Profile" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  onClick={toggleMobileMenu}
+                  sx={{ color: 'white' }}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Box>
+            </Box>
             {renderMobileMenu}
           </>
         ) : (

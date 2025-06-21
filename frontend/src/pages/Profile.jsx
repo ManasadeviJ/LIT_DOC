@@ -4,7 +4,10 @@ import { Edit as EditIcon } from '@mui/icons-material';
 
 const Profile = () => {
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+    <Box sx={{ 
+      minHeight: '100vh', 
+      bgcolor: { xs: '#121212', md: 'background.default' } 
+    }}>
       <Box
         sx={{
           bgcolor: 'primary.main',

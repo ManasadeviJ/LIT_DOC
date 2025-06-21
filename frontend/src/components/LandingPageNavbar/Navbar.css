@@ -285,54 +285,43 @@
 
 /* Media Queries */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 0.75rem 1.5rem;
-  }
-
   .navbar-left {
-    flex: 1;
+    display: none;
   }
-
   .navbar-right {
-    gap: 1rem;
+    display: none;
   }
-
+  .mobile-nav-icons {
+    display: flex;
+    align-items: center;
+  }
   .mobile-menu-btn {
     display: block;
   }
-
   .nav-links {
     display: none;
   }
-
   .mobile-menu {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
   }
-
   .mobile-menu.open {
     transform: translateX(0);
   }
-
   .mobile-nav-links {
     gap: 2rem;
   }
-
   .mobile-nav-link {
     font-size: 1.2rem;
   }
-
   .mobile-nav-link:hover {
-    transform: none;
+    color: var(--primary-color);
   }
-
   .mobile-nav-link::before {
-    display: none;
+    bottom: -2px;
   }
-
   .mobile-nav-link:hover::before {
-    display: none;
+    background: var(--primary-color);
   }
 } 
