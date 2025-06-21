@@ -16,14 +16,11 @@ const Newsletter = () => {
     setMessage('');
     setMessageType('');
     try {
-      const response = await fetch(`http://localhost:3000/api/newsletter/subscribe`, {
+      const response = await fetch(`/api/newsletter/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        mode: 'cors',
-        credentials: 'include',
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
