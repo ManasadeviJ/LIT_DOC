@@ -2,37 +2,14 @@ const { CosmosClient } = require("@azure/cosmos");
 const { EmailClient } = require("@azure/communication-email");
 
 module.exports = async function (context, req) {
-    context.log('🔵 Starting newsletter subscription process');
-
-    // Handle CORS preflight requests
-    if (req.method === 'OPTIONS') {
-        context.res = {
-            status: 204,
-            headers: {
-                'Access-Control-Allow-Origin': context.req.headers.origin || '*',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Credentials': 'true',
-                'Access-Control-Max-Age': '86400'
-            }
-        };
-        return;
-    }
+    context.log('Processing email confirmation request');
 
     try {
-        // Get email from request body
-        const email = req.body.email;
-        context.log('📨 Email received from request body:', email);
-
+        // Get email from query parameters
+        const email = req.query.email;
         if (!email) {
-            context.log('❌ No email provided in the request');
             context.res = {
                 status: 400,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': context.req.headers.origin || '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
                 body: { error: "Email is required" }
             };
             return;
@@ -41,49 +18,32 @@ module.exports = async function (context, req) {
         // Initialize Cosmos DB client
         const cosmosEndpoint = process.env.COSMOS_DB_ENDPOINT;
         const cosmosKey = process.env.COSMOS_DB_KEY;
-        context.log('🔧 Cosmos DB endpoint:', cosmosEndpoint ? '✔️ Found' : '❌ Missing');
-        context.log('🔧 Cosmos DB key:', cosmosKey ? '✔️ Found' : '❌ Missing');
-
         const cosmosClient = new CosmosClient({ endpoint: cosmosEndpoint, key: cosmosKey });
         const database = cosmosClient.database("luxuryintaste");
         const container = database.container("subscribers");
-        context.log('✅ Connected to Cosmos DB');
 
-        // Check if email already exists
-        context.log(`🔍 Checking if email ${email} already exists in DB`);
-        const { resources: existingSubscribers } = await container.items
+        // Find the subscriber
+        const { resources: subscribers } = await container.items
             .query(`SELECT * FROM c WHERE c.email = "${email}"`)
             .fetchAll();
 
-        if (existingSubscribers.length > 0) {
-            context.log('⚠️ Email already exists in subscribers list');
+        if (subscribers.length === 0) {
             context.res = {
-                status: 400,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': context.req.headers.origin || '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
-                body: { error: "Email already subscribed" }
+                status: 404,
+                body: { error: "Subscriber not found" }
             };
             return;
         }
 
-        // Add new subscriber to Cosmos DB
-        const subscriber = {
-            id: email,
-            email: email,
-            subscriptionDate: new Date().toISOString(),
-            status: "pending"
-        };
+        const subscriber = subscribers[0];
 
-        await container.items.create(subscriber);
-        context.log('✅ New subscriber saved in Cosmos DB');
+        // Update subscriber status to confirmed
+        subscriber.status = "confirmed";
+        await container.item(subscriber.id).replace(subscriber);
 
-        // Initialize Azure Communication Services Email client
+        // Send welcome email
         const connectionString = process.env.ACS_CONNECTION_STRING;
-        const senderEmail = process.env.EMAIL_SENDER_ADDRESS;
-        const websiteUrl = process.env.FRONTEND_URL || 'https://black-moss-014630a10.6.azurestaticapps.net';
+        const emailClient = new EmailClient(connectionString);
 
         const htmlContent = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #1a1a1a; color: #ffffff;">
@@ -144,10 +104,8 @@ module.exports = async function (context, req) {
             </div>
         `;
 
-        // Send welcome email
-        const emailClient = new EmailClient(connectionString);
         const emailMessage = {
-            senderAddress: senderEmail,
+            senderAddress: process.env.EMAIL_SENDER_ADDRESS,
             content: {
                 subject: "Welcome to LIT - Your Weekly Fashion Fix!",
                 html: htmlContent,
@@ -176,31 +134,31 @@ Twitter: https://twitter.com/luxuryintaste
             }
         };
 
-        context.log('📨 Sending welcome email...');
         const poller = await emailClient.beginSend(emailMessage);
         const result = await poller.pollUntilDone();
-
-        context.log('✅ Welcome email sent');
 
         context.res = {
             status: 200,
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': context.req.headers.origin || '*',
-                'Access-Control-Allow-Credentials': 'true'
+                "Content-Type": "application/json"
             },
-            body: { message: "Welcome to LIT! Please check your email to confirm your subscription." }
+            body: {
+                message: "Email confirmed successfully!"
+            }
         };
+        
+
     } catch (error) {
-        context.log.error('❗️ Error during subscription process:', error);
+        context.log.error('Error processing confirmation:', error);
         context.res = {
             status: 500,
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': context.req.headers.origin || '*',
-                'Access-Control-Allow-Credentials': 'true'
+                "Content-Type": "application/json"
             },
-            body: { error: "An error occurred while processing your subscription" }
+            body: {
+                error: "An error occurred while processing your confirmation"
+            }
         };
     }
+    
 };
