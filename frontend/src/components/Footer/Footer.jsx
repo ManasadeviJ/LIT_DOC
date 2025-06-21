@@ -41,11 +41,34 @@ const Footer = () => {
   };
 
   return (
-    <footer className="footer-container">
+    <footer className="footer-container" id="footer-community-section">
+      <style>
+        {`
+          .footer-email-container > form {
+            display: flex;
+            width: 100%;
+            gap: 1rem;
+          }
+          @media screen and (max-width: 768px) {
+            .footer-email-container > form {
+              flex-direction: column;
+            }
+
+            .footer-contact-table {
+              grid-template-columns: auto auto !important;
+              justify-content: center;
+            }
+
+            .footer-store-link {
+              display: none !important;
+            }
+          }
+        `}
+      </style>
       {/* Top Navigation Bar */}
       <nav className="footer-top-nav">
         <a href="/">Home</a>
-        <a href="/marketplace">Marketplace</a>
+        <a href="/shop">Marketplace</a>
         <a href="/game-modes">Game Modes</a>
         <a href="/about-us">About Us</a>
         <a href="/contact-us">Contact Us</a>
@@ -64,7 +87,7 @@ const Footer = () => {
         <div className="footer-center">
           <h3>Join our Community</h3>
           <div className="footer-email-container">
-            <form onSubmit={handleSubscribe} style={{ display: 'flex', width: '100%' }}>
+            <form onSubmit={handleSubscribe}>
               <input 
                 type="email" 
                 placeholder="Enter Your Email" 
@@ -106,6 +129,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} Luxury In Taste. All rights reserved.</p>
+        <p>DEBUG-FOOTER-V1</p>
       </div>
     </footer>
   );

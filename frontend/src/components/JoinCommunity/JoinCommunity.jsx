@@ -1,10 +1,8 @@
 import React from 'react';
 import './JoinCommunity.css';
 import joinCommunityBg from '../../assets/join-community-bg.mp4';
-import { useNavigate } from 'react-router-dom';
 
 const JoinCommunity = () => {
-  const navigate = useNavigate();
   return (
     <section className="join-community">
       <div className="video-container">
@@ -20,8 +18,8 @@ const JoinCommunity = () => {
         <p>Join our exclusive community!
         Be the first to know about the latest releases, market trends, exciting launches, and special offers. Stay ahead, Stay LIT.</p>
         <div className="button-container">
-          <button className="cta-button">Join our Community</button>
-          <button className="secondary-button" onClick={() => navigate('/shop')}>Explore Marketplace</button>
+          <a href="#footer-community-section" className="cta-button">Join our Community</a>
+          <button className="secondary-button" onClick={() => window.location.href='/shop'}>Explore Marketplace</button>
         </div>
       </div>
     </section>

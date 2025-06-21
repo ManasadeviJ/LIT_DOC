@@ -56,7 +56,7 @@ const Footer = () => {
               <Link to="/" className="footer-link">
                 Home
               </Link>
-              <Link to="/marketplace" className="footer-link">
+              <Link to="/shop" className="footer-link">
                 Marketplace
               </Link>
               <Link to="/game-modes" className="footer-link">

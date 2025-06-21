@@ -17,6 +17,7 @@
 
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
   /* background-color: #000000 !important; */
 }
 
