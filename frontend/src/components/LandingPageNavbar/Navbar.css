@@ -285,6 +285,15 @@
 
 /* Media Queries */
 @media (max-width: 768px) {
+  /* Force MuiToolbar to have the correct layout on mobile */
+  .navbar .MuiToolbar-root {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem !important;
+  }
+
   .navbar-left {
     display: none;
   }

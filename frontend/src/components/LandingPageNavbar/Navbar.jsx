@@ -145,29 +145,27 @@ const Navbar = () => {
       }}
     >
       <Toolbar sx={{
-        justifyContent: 'space-between',
         alignItems: 'center',
         padding: isMobile ? '0 1rem' : '0 2rem',
         minHeight: '60px !important'
       }}>
         {isMobile ? (
           <>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-              <RouterLink to="/">
-                <img src={logoImage} alt="Logo" style={{ height: '32px', width: 'auto' }} />
-              </RouterLink>
-              <Box>
-                <IconButton color="inherit" component={RouterLink} to="/profile">
-                  <img src={profileAvatar} alt="Profile" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
-                </IconButton>
-                <IconButton
-                  color="inherit"
-                  onClick={toggleMobileMenu}
-                  sx={{ color: 'white' }}
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Box>
+            <RouterLink to="/">
+              <img src={logoImage} alt="Logo" style={{ height: '32px', width: 'auto' }} />
+            </RouterLink>
+            
+            <Box>
+              <IconButton color="inherit" component={RouterLink} to="/profile" sx={{ padding: '8px' }}>
+                <img src={profileAvatar} alt="Profile" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
+              </IconButton>
+              <IconButton
+                color="inherit"
+                onClick={toggleMobileMenu}
+                sx={{ color: 'white', padding: '8px' }}
+              >
+                <MenuIcon />
+              </IconButton>
             </Box>
             {renderMobileMenu}
           </>
