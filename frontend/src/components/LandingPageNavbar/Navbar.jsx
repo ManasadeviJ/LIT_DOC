@@ -156,6 +156,9 @@ const Navbar = () => {
             </RouterLink>
             
             <Box>
+              <IconButton color="inherit">
+                <img src={notificationIcon} alt="Notifications" style={{ width: '24px', height: '24px' }} />
+              </IconButton>
               <IconButton color="inherit" component={RouterLink} to="/profile" sx={{ padding: '8px' }}>
                 <img src={profileAvatar} alt="Profile" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
               </IconButton>
