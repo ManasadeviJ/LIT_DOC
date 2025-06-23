@@ -316,7 +316,7 @@
   .mobile-menu-btn {
     display: block !important;
     z-index: 1201 !important;
-    background: rgba(255,0,0,0.2) !important; /* DEBUG: Remove after confirming visibility */
+    background: none !important;
   }
   .nav-links {
     display: none;
