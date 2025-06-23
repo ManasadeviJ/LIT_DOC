@@ -7,13 +7,13 @@ import irIcon from '../../assets/ir-icon.svg';
 const UnfoldingSoonSection = () => {
   return (
     <section className="unfolding-soon-container" aria-label="Upcoming Features">
-      <h1>Unfolding other Verticals soon</h1>
+      <h2 className="unfolding-main-title">Unfolding Other Verticals Soon</h2>
       
       <div className="icons-container">
         <div className="section-wrapper">
           <div className="card-description">
-            <h2>Avatar Store</h2>
-            <p>Your Alter Ego Vault</p>
+            <h3>Avatar Store</h3>
+            <p className="card-subtitle">Your Alter Ego Vault</p>
           </div>
           <div className="icon-card-wrapper">
             <div className="icon-card">
@@ -29,8 +29,8 @@ const UnfoldingSoonSection = () => {
 
         <div className="section-wrapper">
           <div className="card-description">
-            <h2>Social Platform</h2>
-            <p>Inspire. Engage. Earn</p>
+            <h3>Social Platform</h3>
+            <p className="card-subtitle">Inspire. Engage. Earn.</p>
           </div>
           <div className="icon-card-wrapper">
             <div className="icon-card">
@@ -46,8 +46,8 @@ const UnfoldingSoonSection = () => {
 
         <div className="section-wrapper">
           <div className="card-description">
-            <h2>IR Platform</h2>
-            <p>Your lens to instant shopping</p>
+            <h3>IR Platform</h3>
+            <p className="card-subtitle">Your Lens to Instant Shopping</p>
           </div>
           <div className="icon-card-wrapper">
             <div className="icon-card">

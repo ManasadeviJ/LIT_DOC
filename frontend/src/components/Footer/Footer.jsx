@@ -16,7 +16,7 @@ const Footer = () => {
     setMessage('');
     setMessageType('');
     try {
-      const response = await fetch('/api/subscribe', {
+      const response = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,11 +25,11 @@ const Footer = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        setMessage('Subscribed successfully! Please check your email.');
+        setMessage(data.message || 'Subscribed successfully! Please check your email.');
         setMessageType('success');
         setEmail('');
       } else {
-        setMessage(data.error || 'Subscription failed.');
+        setMessage(data.message || 'Subscription failed.');
         setMessageType('error');
       }
     } catch (error) {

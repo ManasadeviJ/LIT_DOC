@@ -92,21 +92,24 @@
 }
 
 .footer-subscribe-btn {
-  background: radial-gradient(circle, rgba(147, 51, 234, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
-  border: 1px solid rgba(147, 51, 234, 0.5);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  background: linear-gradient(135deg, #1a0826 0%, #2d133b 60%, #3a1c4d 100%);
+  border: 1.5px solid #b9a9d0;
+  box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.18);
+  border-radius: 24px;
   padding: 0.75rem 1.5rem;
   color: #fff;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: filter 0.2s, box-shadow 0.2s;
   white-space: nowrap;
 }
 
 .footer-subscribe-btn:hover {
-  background-color: rgba(147, 51, 234, 0.3);
+  filter: brightness(1.15);
+  border-color: #fff;
+  box-shadow: 0 0 20px rgba(255,255,255,0.18);
 }
 
 .footer-right {

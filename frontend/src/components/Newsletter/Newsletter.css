@@ -713,11 +713,22 @@
 
 .newsletter-luxury-btn {
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  border: none;
-  background: #9333ea;
+  border-radius: 24px;
+  border: 1.5px solid #b9a9d0;
+  background: linear-gradient(135deg, #1a0826 0%, #2d133b 60%, #3a1c4d 100%);
   color: #fff;
   cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: filter 0.2s, box-shadow 0.2s;
+  box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.18);
+}
+
+.newsletter-luxury-btn:hover {
+  filter: brightness(1.15);
+  border-color: #fff;
+  box-shadow: 0 0 20px rgba(255,255,255,0.18);
 }
 
 /* Slider container */

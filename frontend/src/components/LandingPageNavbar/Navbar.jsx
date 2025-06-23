@@ -77,57 +77,21 @@ const Navbar = () => {
 
   const renderMobileMenu = (
     <Drawer
-      anchor='right'
+      anchor="left"
       open={mobileMenuOpen}
       onClose={toggleMobileMenu}
-      sx={{ '.MuiDrawer-paper': { 
-          backgroundColor: 'rgba(0, 0, 0, 0.8)', 
-          backdropFilter: 'blur(10px)',
-          color: 'white' 
-        } 
-      }}
     >
-      <Box sx={{ width: 250 }}>
-        <List>
-          {menuItems.map((item) => (
-            <ListItem
-              key={item.text}
-              component={RouterLink}
-              to={item.path}
-              onClick={toggleMobileMenu}
-              button
-            >
-              <ListItemText primary={item.text} sx={{ color: 'white' }} />
-            </ListItem>
-          ))}
-          <Divider sx={{ bgcolor: '#444' }} />
-          {/* Added Wishlist and Cart to mobile menu */}
-          <ListItem
-            component={RouterLink}
-            to='/wishlist'
-            onClick={toggleMobileMenu}
-            button
-          >
-            <ListItemText primary='Wishlist' sx={{ color: 'white' }} />
+      <List>
+        <ListItem>
+          <img src={logoImage} alt="Logo" style={{ height: '32px', width: 'auto' }} />
+        </ListItem>
+        <Divider />
+        {menuItems.map((item) => (
+          <ListItem key={item.text} onClick={toggleMobileMenu}>
+            <ListItemText primary={item.text} />
           </ListItem>
-          <ListItem
-            component={RouterLink}
-            to='/cart'
-            onClick={toggleMobileMenu}
-            button
-          >
-            <ListItemText primary='Cart' sx={{ color: 'white' }} />
-          </ListItem>
-          <ListItem
-            component={RouterLink}
-            to='/profile'
-            onClick={toggleMobileMenu}
-            button
-          >
-            <ListItemText primary='Profile' sx={{ color: 'white' }} />
-          </ListItem>
-        </List>
-      </Box>
+        ))}
+      </List>
     </Drawer>
   );
 
@@ -154,23 +118,40 @@ const Navbar = () => {
             <RouterLink to="/">
               <img src={logoImage} alt="Logo" style={{ height: '32px', width: 'auto' }} />
             </RouterLink>
-            
-            <Box>
+            <Box className="mobile-nav-icons">
               <IconButton color="inherit">
                 <img src={notificationIcon} alt="Notifications" style={{ width: '24px', height: '24px' }} />
               </IconButton>
               <IconButton color="inherit" component={RouterLink} to="/profile" sx={{ padding: '8px' }}>
                 <img src={profileAvatar} alt="Profile" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
               </IconButton>
-              <IconButton
-                color="inherit"
+              <button
+                className={`mobile-menu-btn${mobileMenuOpen ? ' open' : ''}`}
+                aria-label="Toggle menu"
                 onClick={toggleMobileMenu}
-                sx={{ color: 'white', padding: '8px' }}
               >
-                <MenuIcon />
-              </IconButton>
+                <span className="hamburger-line"></span>
+                <span className="hamburger-line"></span>
+                <span className="hamburger-line"></span>
+              </button>
             </Box>
-            {renderMobileMenu}
+            <nav className={`mobile-menu${mobileMenuOpen ? ' open' : ''}`}>
+              <div className="mobile-menu-header">
+                <img src={logoImage} alt="Logo" style={{ height: '32px', width: 'auto' }} />
+              </div>
+              <div className="mobile-nav-links">
+                {menuItems.map((item) => (
+                  <RouterLink
+                    key={item.text}
+                    to={item.path}
+                    className="nav-link"
+                    onClick={toggleMobileMenu}
+                  >
+                    {item.text}
+                  </RouterLink>
+                ))}
+              </div>
+            </nav>
           </>
         ) : (
           <> {/* Fragment to group left and right sections for desktop */}

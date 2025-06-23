@@ -181,22 +181,22 @@
   font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #FFFFFF;
-  background: radial-gradient(308.33% 308.33% at 53.98% 55.95%, rgba(0, 0, 0, 0.8) 0%, rgba(147, 51, 234, 0.4) 50%);
-  border: 1px solid rgba(174, 174, 174, 1);
-  border-radius: 16px;
+  color: #fff;
+  background: linear-gradient(135deg, #1a0826 0%, #2d133b 60%, #3a1c4d 100%);
+  border: 1.5px solid #b9a9d0;
+  border-radius: 24px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.18);
   width: auto;
   min-width: 200px;
   max-width: 300px;
 }
 
 .play-now-btn:hover {
-  filter: brightness(1.2);
-  border-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  filter: brightness(1.15);
+  border-color: #fff;
+  box-shadow: 0 0 20px rgba(255,255,255,0.18);
 }
 
 /* Responsive Design */
@@ -439,32 +439,50 @@
   }
 
   .game-cards {
-    max-width: 500px;
-    padding: 0.75rem 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    max-width: 100%;
+    padding: 0.5rem 0;
+    position: relative;
   }
 
   .card {
-    width: 142px;
-    height: 214px;
-    margin: 0 3rem;
+    width: 90px;
+    height: 130px;
+    margin: 0 0.1rem;
+    padding: 0;
   }
 
   .image-container {
-    width: 139px;
-    height: 169px;
+    width: 80px;
+    height: 90px;
+  }
+
+  .left-card {
+    transform: rotate(342deg) !important;
+  }
+
+  .right-card {
+    transform: rotate(16deg) !important;
   }
 
   .vs-text {
-    font-size: 48px;
-  }
-
-  .game-info {
-    padding: 0 1rem;
-  }
-
-  .game-info h2 {
-    font-size: 1.75rem;
-    text-align: left;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    z-index: 2;
+    width: auto;
+    margin: 0;
+    background: linear-gradient(180deg, #CDB3FF 0%, #7B6B99 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    display: block;
   }
 
   .play-now-btn {
