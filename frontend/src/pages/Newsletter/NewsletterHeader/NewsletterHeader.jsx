@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './NewsletterHeader.css';
 
 // Import all three images
-import defaultImage from '../../../assets/defaultnewsletter.png';
+import defaultImage from '../../../assets/internationalimage.jpg';
 import domesticImage from '../../../assets/DOMESTIC.png';
-import internationalImage from '../../../assets/internationalimage.jpg';
+import internationalImage from '../../../assets/defaultnewsletter.png';
 
 const NewsletterHeader = ({ activeFilter, onFilterChange, isFlipping }) => {
   const [headerImage, setHeaderImage] = useState(defaultImage);

@@ -139,7 +139,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <div className="footer-divider"></div>
-          <p className="footer-copyright">© 2024 Luxury In Taste. All Rights Reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Luxury In Taste. All rights reserved.</p>
         </div>
       </div>
     </footer>
