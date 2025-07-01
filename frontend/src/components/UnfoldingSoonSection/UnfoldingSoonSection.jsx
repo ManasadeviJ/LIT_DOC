@@ -7,13 +7,15 @@ import irIcon from '../../assets/ir-icon.svg';
 const UnfoldingSoonSection = () => {
   return (
     <section className="unfolding-soon-container" aria-label="Upcoming Features">
-      <h2 className="unfolding-main-title">Unfolding Other Verticals Soon</h2>
+      {/* Changed h2 to h1 to match V2 styles */}
+      <h1>Unfolding Other Verticals Soon</h1>
       
       <div className="icons-container">
         <div className="section-wrapper">
           <div className="card-description">
-            <h3>Avatar Store</h3>
-            <p className="card-subtitle">Your Alter Ego Vault</p>
+            {/* Changed h3 to h2 and removed subtitle class to match V2 styles */}
+            <h2>Avatar Store</h2>
+            <p>Your Alter Ego Vault</p>
           </div>
           <div className="icon-card-wrapper">
             <div className="icon-card">
@@ -29,8 +31,9 @@ const UnfoldingSoonSection = () => {
 
         <div className="section-wrapper">
           <div className="card-description">
-            <h3>Social Platform</h3>
-            <p className="card-subtitle">Inspire. Engage. Earn.</p>
+            {/* Changed h3 to h2 and removed subtitle class to match V2 styles */}
+            <h2>Social Platform</h2>
+            <p>Inspire. Engage. Earn.</p>
           </div>
           <div className="icon-card-wrapper">
             <div className="icon-card">
@@ -46,8 +49,9 @@ const UnfoldingSoonSection = () => {
 
         <div className="section-wrapper">
           <div className="card-description">
-            <h3>IR Platform</h3>
-            <p className="card-subtitle">Your Lens to Instant Shopping</p>
+            {/* Changed h3 to h2 and removed subtitle class to match V2 styles */}
+            <h2>IR Platform</h2>
+            <p>Your Lens to Instant Shopping</p>
           </div>
           <div className="icon-card-wrapper">
             <div className="icon-card">
@@ -65,4 +69,4 @@ const UnfoldingSoonSection = () => {
   );
 };
 
-export default UnfoldingSoonSection; 
+export default UnfoldingSoonSection;

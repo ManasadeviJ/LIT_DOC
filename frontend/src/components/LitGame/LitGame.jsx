@@ -40,7 +40,7 @@ const LitGame = () => {
               LIT Game tests your skills in spotting luxury from alternatives. 
               Can you tell the difference? Challenge yourself and your friends today!
             </p>
-            <button className="play-now-btn" onClick={() => navigate('/game-modes')}>Play Now</button>
+            <button className="lit-game-play-now-btn" onClick={() => navigate('/game-modes')}>Play Now</button>
           </div>
         </div>
       </div>

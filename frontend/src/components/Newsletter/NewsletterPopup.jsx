@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './NewsletterPopup.css';
-import { api } from '../../utils/api';
+import { api } from "../../newsletter-utils/api";
+
+
+
 
 const NewsletterPopup = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState({
     loading: false,
     message: '',
-    type: '', // 'success' or 'error'
+    type: '',
   });
 
   useEffect(() => {
@@ -19,18 +22,19 @@ const NewsletterPopup = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+   
+    
+    
     setStatus({ loading: true, message: '', type: '' });
-
     try {
       const response = await api.subscribe(email);
-
       if (response.success) {
         setStatus({
           loading: false,
           message: response.data.message || 'Subscription successful! Please check your email to confirm.',
           type: 'success',
         });
-
         setTimeout(() => {
           setEmail('');
           onClose();
@@ -49,6 +53,7 @@ const NewsletterPopup = ({ isOpen, onClose }) => {
         type: 'error',
       });
     }
+ 
   };
 
   const handleClose = () => {
@@ -71,7 +76,6 @@ const NewsletterPopup = ({ isOpen, onClose }) => {
             placeholder="Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
             disabled={status.loading}
           />
           {status.message && (
@@ -81,7 +85,7 @@ const NewsletterPopup = ({ isOpen, onClose }) => {
           )}
           <button
             type="submit"
-            className={`subscribe-button ${status.loading ? 'loading' : ''}`}
+            className={`subscribe-button-nw  ${status.loading ? 'loading' : ''}`}
             disabled={status.loading}
           >
             {status.loading ? 'SUBSCRIBING...' : 'SUBSCRIBE NOW'}

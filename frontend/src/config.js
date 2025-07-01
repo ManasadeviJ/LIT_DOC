@@ -1,6 +1,7 @@
 export const API_CONFIG = {
   // Local Backend URL for development
-  BASE_URL: 'http://localhost:3000',
+
+  BASE_URL: 'http://localhost:5000',
   ENDPOINTS: {
     SUBSCRIBE: '/api/newsletter/subscribe',
     CONFIRM: '/api/newsletter/confirm'

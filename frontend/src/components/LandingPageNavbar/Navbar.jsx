@@ -69,9 +69,10 @@ const Navbar = () => {
   const menuItems = [
     { text: 'Game Modes', path: '/game-modes' },
     { text: 'Marketplace', path: '/shop' },
-    { text: 'Socials', path: '#' },
-    { text: 'Newsletter', path: '#' },
-    { text: 'Avatar Store', path: '#' },
+
+    { text: 'Socials', path: '/#' },
+    { text: 'Newsletter', path: '/newsletter' },
+    { text: 'Avatar Store', path: '/#' },
     { text: 'IR icon', path: '#' },
   ];
 

@@ -1,24 +1,35 @@
+/* --- Base Styles --- */
 .unfolding-soon-container {
   width: 100%;
-  padding: 4rem 2rem;
+  padding: 3rem 1.5rem;
   color: #FFFFFF;
+  margin-top: 2rem;
+  margin-bottom: 8rem;
   max-width: 1400px;
-  margin: 2rem auto 8rem;
-}
+  margin-left: auto;
+  margin-right: auto;
+} 
 
 .unfolding-soon-container h1 {
   font-family: 'Poppins', sans-serif;
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 600;
   text-align: left;
   margin-bottom: 4rem;
+  color: #FFFFFF;
+  line-height: 1.2;
+  padding: 0;
+  width: 100%;
 }
 
 .icons-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
   flex-wrap: wrap;
 }
 
@@ -26,23 +37,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
-  flex-shrink: 0;
+  margin-bottom: 6rem;
+  width: 100%;
+  max-width: 300px;
 }
 
+/* --- Flipping Card Styles --- */
 .icon-card-wrapper {
   perspective: 1000px;
   width: 300px;
   height: 300px;
-  margin-bottom: 2rem;
 }
 
 .icon-card {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.8s;
   transform-style: preserve-3d;
+  transition: transform 0.6s;
 }
 
 .icon-card-wrapper:hover .icon-card {
@@ -54,14 +66,13 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 16px;
-  text-align: center;
 }
 
 .card-front {
@@ -69,217 +80,127 @@
 }
 
 .card-back {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: radial-gradient(123.29% 123.29% at 49.82% 56.77%, rgba(0, 0, 0, 0.67) 0%, rgba(135, 85, 180, 0) 100%);
+  box-shadow: -4px 4px 4px 3px rgba(174, 174, 174, 0.1);
   transform: rotateY(180deg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .card-back p {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   color: #FFFFFF;
+  text-align: left;
 }
 
+/* --- Icon and Description Styles --- */
 .vertical-icon {
-  width: 150px;
-  height: auto;
+  width: 200px;
+  height: 400px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-.card-description {
-  text-align: center;
+.icon-card-wrapper:hover .vertical-icon {
+  transform: scale(1.1);
 }
 
-.card-description h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.card-description p {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.5;
-}
-
-.unfolding-main-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 3.2rem;
-  font-weight: 700;
-  text-align: left;
-  margin-bottom: 3rem;
-  letter-spacing: -1px;
-  color: #fff;
-}
-
-.card-description h3 {
-  font-size: 1.45rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: #fff;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-}
-
-.card-subtitle {
-  font-size: 1.02rem;
-  color: rgba(255,255,255,0.8);
-  line-height: 1.4;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-}
-
-/* Responsive Design */
-@media (max-width: 992px) {
-  .icons-container {
-    gap: 4rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .icons-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 2.5rem;
-  }
-  .section-wrapper {
-    width: 90vw;
-    max-width: 340px;
-    margin: 0 auto;
-  }
-  .icon-card-wrapper {
-    width: 90vw;
-    max-width: 260px;
-    height: 220px;
-  }
-  .vertical-icon,
-  #avatar-store-icon,
-  #social-platform-icon,
-  #ir-platform-icon {
-    width: 120px !important;
-    height: auto !important;
-    max-height: 160px;
-    margin: 0 auto;
-    display: block;
-  }
-  .card-description h2 {
-    font-size: 1.2rem;
-  }
-  .card-description p {
-    font-size: 0.95rem;
-  }
-  .unfolding-main-title {
-    font-size: 2.1rem;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  .card-description h3 {
-    font-size: 1.1rem;
-  }
-  .card-subtitle {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .unfolding-soon-container h1 {
-    font-size: 2.5rem;
-  }
-}
-
+/* Specific icon sizes for proper aspect ratio */
 #social-platform-icon {
   width: 375px;
   height: 480px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
 }
-
 #ir-platform-icon {
   width: 260px;
   height: 520px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
 }
-
 #avatar-store-icon {
   width: 227px;
   height: 560px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
 }
 
-.unfolding-icons-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
-  flex-wrap: nowrap;
+.card-description {
+  text-align: left;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  position: relative;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
-.unfolding-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-width: 120px;
-  max-width: 200px;
-  flex: 1;
-}
-
-.unfolding-icon img {
-  width: 100%;
-  height: auto;
-  max-width: 180px;
-  object-fit: contain;
-}
-
-.unfolding-icon p {
-  font-size: 1rem;
-  text-align: center;
+.card-description h2 {
+  font-size: 2rem;
+  font-weight: 600;
   color: #FFFFFF;
-  margin: 0;
-  padding: 0;
+  margin-bottom: 0.5rem;
+  text-align: left;
   width: 100%;
 }
 
-@media (max-width: 1400px) {
-  .unfolding-icons-container {
-    gap: 1.25rem;
-    max-width: 1200px;
-  }
-
-  .unfolding-icon {
-    min-width: 110px;
-    max-width: 180px;
-  }
-
-  .unfolding-icon img {
-    max-width: 160px;
-  }
+.card-description p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  max-width: 300px;
+  margin: 0;
+  text-align: left;
 }
 
+/* --- Responsive Design --- */
 @media (max-width: 1200px) {
-  .unfolding-icons-container {
-    gap: 1rem;
-    max-width: 1000px;
-  }
+  .unfolding-soon-container h1 { font-size: 4rem; }
+  .icons-container { gap: 0rem; }
+  .icon-card-wrapper { width: 280px; height: 280px; }
+  .vertical-icon { width: 180px; height: 360px; }
+  #social-platform-icon { width: 340px; height: 440px; }
+  #ir-platform-icon { width: 240px; height: 480px; }
+  #avatar-store-icon { width: 207px; height: 520px; }
+}
 
-  .unfolding-icon {
-    min-width: 100px;
-    max-width: 160px;
-  }
+@media (max-width: 992px) {
+  .unfolding-soon-container h1 { font-size: 3rem; }
+  .icons-container { flex-direction: column; gap: 2.5rem; align-items: center; }
+  .icon-card-wrapper { width: 260px; height: 260px; }
+  .vertical-icon { width: 160px; height: 320px; }
+  #social-platform-icon { width: 300px; height: 400px; }
+  #ir-platform-icon { width: 220px; height: 440px; }
+  #avatar-store-icon { width: 187px; height: 480px; }
+}
 
-  .unfolding-icon img {
-    max-width: 140px;
+@media (max-width: 768px) {
+  .unfolding-soon-container { padding: 2rem 1rem; margin-bottom: 4rem; }
+  .unfolding-soon-container h1 { font-size: 2.5rem; margin-bottom: 2rem; }
+  .icons-container { gap: 4rem; padding: 1rem; }
+  .section-wrapper { margin-bottom: 2rem; }
+  .icon-card-wrapper { width: 100%; max-width: 280px; height: 250px; }
+  .card-description h2 { font-size: 1.75rem; }
+  .card-description p { font-size: 0.9rem; }
+  .vertical-icon, #social-platform-icon, #ir-platform-icon, #avatar-store-icon {
+    width: 140px;
+    height: 280px;
   }
-} 
+  .card-back p { font-size: 0.9rem; }
+}
+
+@media (max-width: 480px) {
+  .unfolding-soon-container { padding: 1.5rem 1rem; margin-bottom: 3rem; }
+  .unfolding-soon-container h1 { font-size: 2rem; }
+  .icons-container { gap: 3rem; }
+  .icon-card-wrapper { height: 220px; }
+  .vertical-icon, #social-platform-icon, #ir-platform-icon, #avatar-store-icon {
+    width: 120px;
+    height: 240px;
+  }
+  .card-description h2 { font-size: 1.5rem; }
+  .card-description p, .card-back p { font-size: 0.85rem; }
+}
+
+@media (max-width: 375px) {
+  .icon-card-wrapper { height: 160px; }
+  .vertical-icon, #social-platform-icon, #ir-platform-icon, #avatar-store-icon {
+    width: 100px;
+    height: 200px;
+  }
+}

@@ -1,9 +1,11 @@
+
 import React from 'react';
 import './Background.css';
 
 const Background = ({ children }) => {
   return (
     <div className="background-container">
+      <div className="background-image" />
       <div className="background-content">
         {children}
       </div>
@@ -11,4 +13,4 @@ const Background = ({ children }) => {
   );
 };
 
-export default Background; 
+export default Background;

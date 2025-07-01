@@ -31,7 +31,7 @@ const EditProductForm = ({ isOpen, onClose, productId }) => {
 
   const fetchProductData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${productId}`);
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`);
       if (!response.ok) throw new Error('Failed to fetch product');
       const data = await response.json();
       setFormData(data);
@@ -62,7 +62,7 @@ const EditProductForm = ({ isOpen, onClose, productId }) => {
     setSuccess('');
 
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

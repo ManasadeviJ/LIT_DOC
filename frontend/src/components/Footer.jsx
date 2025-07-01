@@ -16,7 +16,7 @@ const Footer = () => {
     setMessageType('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/newsletter/subscribe', {
+      const response = await fetch('http://localhost:5000/api/newsletter/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

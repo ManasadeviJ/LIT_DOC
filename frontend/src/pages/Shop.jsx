@@ -5,6 +5,7 @@ import CategoryCards from '../components/CategoryCards';
 import FilterBar from '../components/FilterBar';
 import ProductList from '../components/Shop/ProductList';
 import { getProducts } from '../services/api';
+import Navbar from '../components/Newsletter-components/Navbar/Navbar';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -45,6 +46,7 @@ const Shop = () => {
 
   return (
     <div className="shop-page">
+      <Navbar />
       <SearchBar onSearch={handleSearch} />
       <CategoryCards />
       <FilterBar />

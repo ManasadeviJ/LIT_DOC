@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:5000/api';
 
+// Get all products
 export const getProducts = async () => {
   try {
     const response = await axios.get(`${API_URL}/products`);
@@ -11,6 +12,7 @@ export const getProducts = async () => {
   }
 };
 
+// Get featured products
 export const getFeaturedProducts = async () => {
   try {
     const response = await axios.get(`${API_URL}/products/featured`);
@@ -20,6 +22,7 @@ export const getFeaturedProducts = async () => {
   }
 };
 
+// Get single product by ID
 export const getProduct = async (id) => {
   try {
     const response = await axios.get(`${API_URL}/products/${id}`);
@@ -29,6 +32,7 @@ export const getProduct = async (id) => {
   }
 };
 
+// Create a new product
 export const createProduct = async (productData) => {
   try {
     const response = await axios.post(`${API_URL}/products`, productData);
@@ -44,7 +48,16 @@ export const validateCouponCode = async (code) => {
     const response = await axios.post(`${API_URL}/coupons/validate`, { code });
     return response.data;
   } catch (error) {
-    // If backend returns error, throw the error message
     throw error.response?.data?.message || 'Coupon validation failed';
   }
-}; 
+};
+
+// ✅ Subscribe to newsletter
+export const subscribeToNewsletter = async (email) => {
+  try {
+    const response = await axios.post(`${API_URL}/newsletter/subscribe`, { email });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || 'Subscription failed';
+  }
+};

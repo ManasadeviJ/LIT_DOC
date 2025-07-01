@@ -1,205 +1,108 @@
+:root {
+  --text-color: #d1d1d1;
+  --placeholder-color: #8e8e9c;
+  --search-bg: #323240;
+  --icon-hover-bg: #4a4a5a;
+  --panel-bg: #2a2a36; /* Slightly different bg for the panel */
+}
+
 .search-container {
+  position: relative; /* This is crucial for positioning the filter panel */
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 2rem;
-  margin-top: 5rem;
+  margin-top: 6rem;
   margin-bottom: 2rem;
 }
 
 .search-wrapper {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 1.5rem;
-  border-radius: 15px;
+  gap: 1rem; /* Gap between search bar and action buttons */
 }
-
+ 
 .search-box {
   display: flex;
   align-items: center;
-  flex: 1;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  overflow: hidden;
+  flex: 1; /* Takes up available space */
+  background: var(--search-bg);
+  border-radius: 12px;
+  padding: 0.5rem 1rem; /* Padding inside the search box */
   transition: all 0.3s ease;
-  position: relative;
+  gap: 0.75rem; /* Gap between items inside search box */
+  height: 40px;
 }
 
 .search-box:focus-within {
-  box-shadow: 0 0 0 2px var(--primary-color);
+  box-shadow: 0 0 0 2px var(--placeholder-color); /* Optional focus outline */
+}
+
+.search-icon {
+  color: var(--placeholder-color);
+  flex-shrink: 0; /* Prevents the icon from shrinking */
 }
 
 .search-input {
   flex: 1;
-  padding: 0.8rem 1.2rem;
+  width: 100%;
   border: none;
   background: none;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--text-color);
   font-size: 16px;
-  font-family: Arial, Helvetica,sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   outline: none;
-  width: 100%;
 }
 
 .search-input::placeholder {
-  color: transparent;
+  color: var(--placeholder-color);
+  opacity: 1; /* Ensure placeholder is visible */
 }
 
-.search-box::before {
-  content: "";
-  position: absolute;
-  left: 1.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.7);
-  animation: typing 16s infinite;
-  pointer-events: none;
-  white-space: nowrap;
-  font-family: monospace;
-}
-
-/* Hide the animation when input is focused or has text */
-.search-box.has-text::before {
-  display: none;
-  animation: none;
-}
-
-.search-input:focus {
-  z-index: 1;
-}
-
-.search-button {
+/* Base styles for all icon buttons */
+.icon-button, .action-button {
   background: none;
   border: none;
-  padding: 0.8rem 1.2rem;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  color: white;
-  transition: all 0.3s ease;
-}
-
-.search-button:hover {
-  color: var(--primary-color);
-}
-
-.action-buttons-search {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.action-button {
-  color: white;
-  padding: 0.5rem;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
 }
 
+/* Filter icon button inside search bar */
+.icon-button {
+  padding: 0.25rem;
+}
+.icon-button:hover {
+  background-color: var(--icon-hover-bg);
+}
+
+/* Heart and Bag buttons */
+.action-buttons-search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.action-button {
+  padding: 0.5rem;
+}
 .action-button:hover {
-  background: var(--primary-color);
-  transform: translateY(-2px);
+  background-color: var(--icon-hover-bg);
 }
 
-/* Mobile Responsive Design */
+/* --- (You can keep your existing media queries and adjust if needed) --- */
 @media (max-width: 768px) {
   .search-container {
     padding: 0 1rem;
-    margin-top: 3rem;
+    margin-top: 5rem;
   }
-
   .search-wrapper {
-    padding: 0.75rem 1rem;
     gap: 0.75rem;
   }
-
-  .search-box {
-    min-width: 120px;
-  }
-
-  .search-input {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  .search-button {
-    padding: 0.6rem 0.8rem;
-  }
-
-  .action-buttons-search {
-    gap: 0.5rem;
-  }
-
-  .action-button {
-    padding: 0.4rem;
-  }
 }
-
-/* Small mobile screens */
-@media (max-width: 480px) {
-  .search-container {
-    padding: 0 0.5rem;
-    margin-top: 4rem;
-    margin-bottom: 1rem;
-  }
-
-  .search-wrapper {
-    padding: 0.5rem 0.75rem;
-    gap: 0.5rem;
-  }
-
-  .search-box {
-    min-width: 100px;
-  }
-
-  .search-input {
-    padding: 0.5rem 0.6rem;
-    font-size: 0.85rem;
-  }
-
-  .search-button {
-    padding: 0.5rem 0.6rem;
-  }
-
-  .action-button {
-    padding: 0.35rem;
-  }
-}
-
-@keyframes typing {
-  0%, 20% {
-    content: "S|";
-  }
-  2% {
-    content: "Se|";
-  }
-  4% {
-    content: "Sea|";
-  }
-  6% {
-    content: "Sear|";
-  }
-  8% {
-    content: "Searc|";
-  }
-  10% {
-    content: "Search|";
-  }
-  12% {
-    content: "Search f|";
-  }
-  14% {
-    content: "Search fo|";
-  }
-  16% {
-    content: "Search for|";
-  }
-  18% {
-    content: "Search for.|";
-  }
-  20%, 100% {
-    content: "Search for men's|";
-  }
-} 

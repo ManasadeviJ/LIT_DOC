@@ -4,10 +4,10 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #000; /* Solid black background as per original */
   color: #fff;
 }
 
+ 
 /* App container */
 #root {
   display: flex;
@@ -26,18 +26,15 @@ main {
 }
 
 /* Background image - Removed as per original */
-/* body::before {
-  content: '';
-  position: fixed;
+body::before {
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('/src/assets/body-bg.png') no-repeat center center fixed;
   background-size: cover;
   opacity: 1;
   z-index: -1;
-} */
+}
 
 /* Admin Dashboard specific styles */
 .admin-dashboard {

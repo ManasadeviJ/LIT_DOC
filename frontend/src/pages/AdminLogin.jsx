@@ -1,36 +1,41 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/AdminLogin.css';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/context-admin/AuthContext';
+import '../styles/AdminLogin.css'; // ✅ CSS stays imported here
 
 const AdminLogin = () => {
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({
-    email: '',
-    password: ''
-  });
+  const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
+
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+
+  const params = new URLSearchParams(location.search);
+  const redirectParam = params.get('redirect');
+
+  let redirectPath = '/admin/dashboard';
+  if (redirectParam === 'ecommerce') {
+    redirectPath = '/admin/ecomDashboard';
+  }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(redirectPath);
+    }
+  }, [isAuthenticated, navigate, redirectPath]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCredentials(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setCredentials(prev => ({ ...prev, [name]: value }));
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
     setError('');
-
-    // Get admin credentials from environment variables
-    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'aimanshefa267@gmail.com';
-    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Aiman_lit@267';
-
-    // Check if credentials match the admin credentials from environment variables
-    if (credentials.email === adminEmail && credentials.password === adminPassword) {
-      // Set authentication status in session state
-      sessionStorage.setItem('adminAuthenticated', 'true');
-      navigate('/admin/dashboard');
+    const success = login(credentials.email, credentials.password);
+    if (success) {
+      navigate(redirectPath);
     } else {
       setError('Invalid email or password. Please try again.');
     }
@@ -75,4 +80,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin; 
+export default AdminLogin;  
