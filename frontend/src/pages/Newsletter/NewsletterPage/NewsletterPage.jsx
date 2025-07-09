@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './NewsletterPage.css';
 
 import NewsletterHeader from '../NewsletterHeader/NewsletterHeader';
 import Footer from '../../../components/Newsletter-components/Footer/Footer';
-import SustainableFashion from '../SustainableFashion/SustainableFashion';
-import LuxuryFashion from '../LuxuryFashion/LuxuryFashion';
-import FastFashion from '../FastFashion/FastFashion';
-import FashionSection from '../FashionSection/FashionSection';
-import SneakersWorld from '../SneakersWorld/SneakersWorld';
+import { getArticles } from '../../../services/api';
+
+// ✅ Lazy-load heavy section components
+const SustainableFashion = lazy(() => import('../SustainableFashion/SustainableFashion'));
+const LuxuryFashion = lazy(() => import('../LuxuryFashion/LuxuryFashion'));
+const FastFashion = lazy(() => import('../FastFashion/FastFashion'));
+const FashionSection = lazy(() => import('../FashionSection/FashionSection'));
+const SneakersWorld = lazy(() => import('../SneakersWorld/SneakersWorld'));
 
 const NewsletterPage = () => {
   const [searchParams] = useSearchParams();
   const contentRef = useRef(null);
 
-  const [containerHeight, setContainerHeight] = useState('100vh');
   const [allArticles, setAllArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,15 +24,12 @@ const NewsletterPage = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      setError(null);
-      setLoading(true);
       try {
-        const response = await fetch('http://localhost:5000/api/articles');
-        if (!response.ok) throw new Error(`API Error: ${response.status}`);
-        const data = await response.json();
+        setLoading(true);
+        const data = await getArticles();
         setAllArticles(data || []);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || 'Failed to load articles');
       } finally {
         setLoading(false);
       }
@@ -39,30 +38,18 @@ const NewsletterPage = () => {
   }, []);
 
   useEffect(() => {
-    if (loading) return;
-    const sectionToScroll = searchParams.get('section');
-    if (sectionToScroll) {
-      const element = document.getElementById(`${sectionToScroll}-section`);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+    if (!loading) {
+      const sectionToScroll = searchParams.get('section');
+      if (sectionToScroll) {
+        const element = document.getElementById(`${sectionToScroll}-section`);
+        if (element) {
+          requestAnimationFrame(() =>
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          );
+        }
       }
     }
   }, [loading, searchParams]);
-
-  useEffect(() => {
-    const measureHeight = () => {
-      requestAnimationFrame(() => {
-        if (contentRef.current) {
-          setContainerHeight(`${contentRef.current.offsetHeight}px`);
-        }
-      });
-    };
-    measureHeight();
-    window.addEventListener('resize', measureHeight);
-    return () => window.removeEventListener('resize', measureHeight);
-  }, [loading, activeFilter]);
 
   const handleFilterChange = (newFilter) => {
     if (newFilter !== activeFilter) {
@@ -70,8 +57,14 @@ const NewsletterPage = () => {
     }
   };
 
-  const domesticContent = useMemo(() => allArticles.filter(a => a.location?.toLowerCase() === 'domestic'), [allArticles]);
-  const internationalContent = useMemo(() => allArticles.filter(a => a.location?.toLowerCase() === 'international'), [allArticles]);
+  const domesticContent = useMemo(
+    () => allArticles.filter(a => a.location?.toLowerCase() === 'domestic'),
+    [allArticles]
+  );
+  const internationalContent = useMemo(
+    () => allArticles.filter(a => a.location?.toLowerCase() === 'international'),
+    [allArticles]
+  );
 
   const articlesToRender = useMemo(() => {
     if (activeFilter === 'domestic') return domesticContent;
@@ -80,7 +73,7 @@ const NewsletterPage = () => {
   }, [activeFilter, domesticContent, internationalContent, allArticles]);
 
   const renderSections = (articles) => {
-    if (loading || !articles) return null;
+    if (!articles) return null;
 
     const sections = [
       { id: 'sustainable', Component: SustainableFashion, posts: articles.filter(p => p.category === 'SustainableFashion') },
@@ -90,27 +83,51 @@ const NewsletterPage = () => {
       { id: 'sneakers', Component: SneakersWorld, posts: articles.filter(p => p.category === 'SneakerWorld') },
     ];
 
-    return sections.map(section => {
-      const sectionId = `${section.id}-section`;
-      if (section.id === 'fashion-feature') {
-        return section.post ? <div id={sectionId} key={section.id}><section.Component post={section.post} /></div> : null;
+    return sections.map(({ id, Component, posts, post }) => {
+      const sectionId = `${id}-section`;
+
+      if (id === 'fashion-feature' && post) {
+        return (
+          <div id={sectionId} key={id}>
+            <Component post={post} />
+          </div>
+        );
       }
-      if (!section.posts || section.posts.length === 0) return null;
-      return <div id={sectionId} key={section.id}><section.Component posts={section.posts} /></div>;
+
+      if (posts?.length > 0) {
+        return (
+          <div id={sectionId} key={id}>
+            <Component posts={posts} />
+          </div>
+        );
+      }
+
+      return null;
     });
   };
 
-  if (loading) return <h2 style={{ color: 'white', textAlign: 'center', marginTop: '150px' }}>Loading...</h2>;
-  if (error) return <h2 style={{ color: 'red', textAlign: 'center', marginTop: '150px' }}>Error: {error}</h2>;
-
   return (
-    <div className="page-flip-container" >
+    <div className="page-flip-container">
       <div className="content-wrapper" ref={contentRef}>
         <NewsletterHeader activeFilter={activeFilter} onFilterChange={handleFilterChange} />
-        <div className="page-container">
-          {renderSections(articlesToRender)}
-        </div>
-        {/* <Footer /> */}
+
+        {loading && (
+          <h2 style={{ color: 'white', textAlign: 'center', marginTop: '150px' }}>Loading...</h2>
+        )}
+
+        {error && (
+          <h2 style={{ color: 'red', textAlign: 'center', marginTop: '150px' }}>
+            Error: {error}
+          </h2>
+        )}
+
+        {!loading && !error && (
+          <div className="page-container">
+            <Suspense fallback={<div className="lazy-loader">Loading sections...</div>}>
+              {renderSections(articlesToRender)}
+            </Suspense>
+          </div>
+        )}
       </div>
     </div>
   );

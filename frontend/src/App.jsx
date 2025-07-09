@@ -7,51 +7,49 @@ import { WishlistProvider } from './context/WishlistContext';
 import { AuthProvider } from './context/context-admin/AuthContext';
 import { DataProvider } from './context/context-admin/DataContext';
 
-//componenets
-import ComingSoonPage from './components/ComingSoonPage/ComingSoonPage';
-
 // Layout & UI
 import Background from './components/Background/Background';
 import Footer from "./components/Newsletter-components/Footer/Footer";
 import LandingPageNavbar from './components/Newsletter-components/Navbar/Navbar';
 import Navbar from './components/Newsletter-components/Navbar/Navbar';
-// --- CHANGE: MainLayout import removed as it wasn't being used correctly
-// import MainLayout from './components/Newsletter-components/MainLayout/MainLayout'; 
+import MainLayout from './components/Newsletter-components/MainLayout/MainLayout';
 import ProtectedRoute from './components/admin-components/ProtectedRoute';
 import AdminLayout from './components/admin-components/AdminLayout';
 
-// Pages
+// Pages - Public
 import LandingPage from './components/LandingPage';
 import Shop from './pages/Shop';
 import ProductDetails from './components/Shop/ProductDetails';
 import Cart from './components/Shop/Cart';
+import Wishlist from './pages/Wishlist';
 import GameModes from './pages/GameModes';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 import Orders from './pages/Orders';
 import Settings from './pages/Settings';
-import Checkout from './pages/Checkout';
+import CheckoutPage from './components/checkout/CheckoutPage';
 import OrderConfirmation from './pages/OrderConfirmation';
 import NotFound from './pages/NotFound';
+import ProductListPage from './pages/productListPage';
+import ComingSoonPage from './components/ComingSoonPage/ComingSoonPage';
 
+// Pages - Admin
 import AdminLogin from './pages/AdminLogin';
 import SignUpPage from './pages/admin/Auth/SignUpPage';
 import AdminDashboard from './pages/admin/AdminDashboard/AdminDashboard';
+import EcomAdminDashboard from './pages/admin/EcomAdminDashboard';
 import ContentManager from './pages/admin/ContentManager/ContentManager';
 import ArticleEditor from './pages/admin/ArticleEditor/ArticleEditor';
 import MailAdderPage from './pages/admin/MailAdderPage/MailAdderPage';
 import MailItemEditor from './pages/admin/MailItemEditor/MailItemEditor';
 import AdminArticlePage from './pages/admin/ArticlePage';
+import DeleteProductForm from './components/DeleteProductForm';
+import EditProductForm from './components/EditProductForm';
 
+// Pages - Newsletter
 import NewsletterPage from './pages/Newsletter/NewsletterPage/NewsletterPage';
 import NewsletterArticlePage from './pages/Newsletter/ArticlePage/ArticlePage';
-
-// --- CHANGE: Removed unused page imports ---
-// import SustainabilityPage from './pages/Newsletter/SustainableFashion/SustainableFashion';
-// import LuxuryPage from './pages/Newsletter/LuxuryFashion/LuxuryFashion';
-// import FastFashionPage from './pages/Newsletter/FastFashion/FastFashion';
-// import SneakerPage from './pages/Newsletter/SneakersWorld/SneakersWorld';
 
 const AppContent = () => {
   const location = useLocation();
@@ -71,40 +69,41 @@ const AppContent = () => {
 
       <main style={{ flex: 1, width: '100%' }}>
         <Routes>
-          {/* Public */}
+          {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/game-modes" element={<ComingSoonPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/ir-icon" element={<ComingSoonPage />} />
           <Route path="/socials" element={<ComingSoonPage />} />
           <Route path="/avatar-store" element={<ComingSoonPage />} />
+          <Route path="/products" element={<ProductListPage />} />
 
-          {/* Newsletter */}
-          {/* --- CHANGE: Simplified the newsletter route and removed the now-redundant routes --- */}
-          <Route path="/newsletter" element={<NewsletterPage />} />
+          {/* Newsletter Routes */}
+          <Route element={<MainLayout />}>
+            <Route path="/newsletter" element={<NewsletterPage />} />
+          </Route>
           <Route path="/newsletter/article/:slug" element={<NewsletterArticlePage />} />
-          
-          {/* --- The following routes are now handled by the logic above and can be removed --- */}
-          {/* <Route path="/sustainability" element={<SustainabilityPage />} /> */}
-          {/* <Route path="/luxury" element={<LuxuryPage />} /> */}
-          {/* <Route path="/fast-fashion" element={<FastFashionPage />} /> */}
-          {/* <Route path="/sneakers" element={<SneakerPage />} /> */}
 
-          {/* Admin */}
+          {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/signup" element={<SignUpPage />} />
           <Route path="/admin/article/:slug" element={<AdminArticlePage />} />
+          
           <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/ecomDashboard" element={<EcomAdminDashboard />} />
+            <Route path="/admin/edit-product" element={<EditProductForm />} />
+            <Route path="/admin/delete-product" element={<DeleteProductForm />} />
             <Route path="/admin/website" element={<ContentManager section="website" />} />
             <Route path="/admin/mail" element={<ContentManager section="mail" />} />
             <Route path="/admin/mail/add" element={<MailAdderPage />} />

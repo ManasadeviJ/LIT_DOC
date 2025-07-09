@@ -59,7 +59,7 @@ const FileUploadBox = ({ onFileSelect, color, onFileRemove }) => {
               progress,
               status: progress === 100 ? 'completed' : 'uploading'
             }
-          }));
+          })); 
         } else {
           clearInterval(interval);
         }
@@ -153,11 +153,13 @@ const AddProductForm = ({ isOpen, onClose }) => {
     description: '',
     category: '',
     stock: '',
+     subcategory: '',
     colors: [],
     colorImages: {},
     sizes: [],
     features: [],
-    featured: false
+    featured: false,
+      gender: '' 
   });
 
   const [newFeature, setNewFeature] = useState('');
@@ -182,20 +184,19 @@ const AddProductForm = ({ isOpen, onClose }) => {
       [name]: type === 'checkbox' ? checked : value
     }));
   };
-
-  const handleColorSelect = (color) => {
-    if (color && !formData.colors.includes(color)) {
-      setFormData(prev => ({
-        ...prev,
-        colors: [...prev.colors, color],
-        colorImages: {
-          ...prev.colorImages,
-          [color]: []
-        }
-      }));
-    }
-    setSelectedColor('');
-  };
+const handleColorSelect = (color) => {
+  if (color && !formData.colors.includes(color)) {
+    setFormData(prev => ({
+      ...prev,
+      colors: [...prev.colors, color], // ✅ Just strings
+      colorImages: {
+        ...prev.colorImages,
+        [color]: []
+      }
+    }));
+  }
+  setSelectedColor('');
+};
 
   const handleImageUpload = useCallback((files, color) => {
     setFormData(prev => ({
@@ -265,63 +266,74 @@ const AddProductForm = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError('');
+  e.preventDefault();
+  setIsSubmitting(true);
+  setError('');
 
-    try {
-      // Prepare the product data for API submission
-      const productData = {
-        name: formData.productName,
-        brand: formData.brandName,
-        description: formData.description,
-        price: parseFloat(formData.currentPrice),
-        originalPrice: parseFloat(formData.originalPrice),
-        discount: parseFloat(formData.discountPercentage) || 0,
-        category: formData.category,
-        stock: parseInt(formData.stock) || 0,
-        colors: formData.colors,
-        sizes: formData.sizes,
-        features: formData.features,
-        featured: formData.featured,
-        imageUrl: '/images/products/default-product.jpg'
-      };
+  try {
+    const form = new FormData();
 
-      console.log('Submitting product data:', productData);
-      
-      // Call the API to create the product
-      const createdProduct = await createProduct(productData);
-      console.log('Product created successfully:', createdProduct);
-      
-      // Reset form and close modal
-      setFormData({
-        brandName: '',
-        productName: '',
-        originalPrice: '',
-        currentPrice: '',
-        discountPercentage: '',
-        description: '',
-        category: '',
-        stock: '',
-        colors: [],
-        colorImages: {},
-        sizes: [],
-        features: [],
-        featured: false
-      });
-      setNewFeature('');
-      setNewSize('');
-      setSelectedColor('');
-      setColorImages([]);
-      
-      onClose();
-    } catch (error) {
-      console.error('Error creating product:', error);
-      setError(error.response?.data?.message || 'Failed to create product. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    form.append('name', formData.productName);
+    form.append('brand', formData.brandName);
+    form.append('description', formData.description);
+    form.append('price', parseFloat(formData.currentPrice));
+    form.append('originalPrice', parseFloat(formData.originalPrice));
+    form.append('discount', parseFloat(formData.discountPercentage) || 0);
+    form.append('category', formData.category);
+    form.append('stock', parseInt(formData.stock) || 0);
+    form.append('subcategory', formData.subcategory);
+formData.features.forEach(feature => form.append('features[]', feature));
+  form.append('gender', formData.gender);
+
+    formData.colors.forEach(color => form.append('colors[]', color));
+    formData.sizes.forEach(size => form.append('sizes[]', size));
+    formData.features.forEach(feature => form.append('features[]', feature));
+
+    // Append images per color
+Object.entries(formData.colorImages || {}).forEach(([color, files]) => {
+  if (Array.isArray(files)) {
+    files.forEach((file) => {
+      form.append(`images[${color}]`, file);
+    });
+  }
+})
+
+    // Submit using Axios (assumes `createProduct` handles FormData)
+    const response = await createProduct(form);
+    console.log('Product created successfully:', response);
+
+    // Reset form
+    setFormData({
+      brandName: '',
+      productName: '',
+      originalPrice: '',
+      currentPrice: '',
+      discountPercentage: '',
+      description: '',
+      category: '',
+      subcategory: '',
+      stock: '',
+      colors: [],
+      colorImages: {},
+      sizes: [],
+      features: [],
+      featured: false,
+      gender: ''
+    });
+    setNewFeature('');
+    setNewSize('');
+    setSelectedColor('');
+    setColorImages([]);
+    
+    console.log("formData.colorImages:", formData.colorImages);
+    onClose();
+  } catch (error) {
+    console.error('Error creating product:', error);
+    setError(error.response?.data?.message || 'Failed to create product. Please try again.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   if (!isOpen) return null;
 
@@ -379,6 +391,37 @@ const AddProductForm = ({ isOpen, onClose }) => {
               ))}
             </select>
           </div>
+
+          <div className="form-group">
+  <label htmlFor="subcategory">Subcategory</label>
+  <input
+    type="text"
+    id="subcategory"
+    name="subcategory"
+    value={formData.subcategory}
+    onChange={handleInputChange}
+    placeholder="Enter subcategory (e.g. Running Shoes, Smart Watches)"
+    required
+  />
+</div>
+
+
+          <div className="form-group">
+  <label htmlFor="gender">Gender</label>
+  <select
+    id="gender"
+    name="gender"
+    value={formData.gender}
+    onChange={handleInputChange}
+    required
+  >
+    <option value="">Select Gender</option>
+    <option value="Men">Men</option>
+    <option value="Women">Women</option>
+    <option value="Unisex">Unisex</option>
+  </select>
+</div>
+
 
           <div className="form-row">
             <div className="form-group">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, addToWishlist, removeFromWishlist } from '../../redux/reducers/cartReducer';
@@ -9,11 +9,24 @@ const ProductCard = ({ product }) => {
   const wishlist = useSelector(state => state.cart.wishlist);
   const isWishlisted = product ? wishlist.some(item => item._id === product._id) : false;
 
-  const [imgSrc, setImgSrc] = useState(product.imageUrl || '/images/products/default-product.jpg');
+  const [imgSrc, setImgSrc] = useState('/images/products/default-product.jpg');
+
+  // ✅ Use image URL directly (not base64)
+  useEffect(() => {
+    if (
+      product.images &&
+      product.images.length > 0 &&
+      product.images[0].images &&
+      product.images[0].images.length > 0
+    ) {
+      const imageUrl = product.images[0].images[0]; // now just a URL string
+      setImgSrc(imageUrl);
+    }
+  }, [product]);
 
   const handleWishlistClick = (e) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent navigation when clicking wishlist button
+    e.stopPropagation();
     if (isWishlisted) {
       dispatch(removeFromWishlist(product._id));
     } else {
@@ -23,20 +36,16 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent navigation when clicking add to cart button
+    e.stopPropagation();
 
     const itemToAdd = {
       ...product,
       quantity: 1,
-      // Provide default color and size from the first available options
       color: product.colors && product.colors.length > 0 ? product.colors[0] : 'Default Color',
       size: product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Default Size',
     };
-    
+
     dispatch(addToCart(itemToAdd));
-    // You might want to add a Snackbar notification here, similar to ProductDetails.jsx
-    // However, for product lists, a single Snackbar managed at a higher level (e.g., Shop.jsx)
-    // that responds to cart additions might be more appropriate to avoid multiple pop-ups.
   };
 
   return (
