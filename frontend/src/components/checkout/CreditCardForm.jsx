@@ -6,7 +6,7 @@ const CreditCardForm = () => {
   return (
     <div className="payment-form credit-card-form">
       <div className="form-header">
-        <CreditCard className="form-header-icon" size={24} />
+        <CreditCard className="form-header-icon" size={24} style={{marginTop: '-15px'}}/>
         <h4 className="form-header-title">Debit / Credit Card</h4>
       </div>
       

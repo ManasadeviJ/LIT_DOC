@@ -24,11 +24,10 @@ html {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
-  min-height: 100%;
-  /* background-color: #000000 !important; */
+  min-height: 100vh;
+  display: block; /* changed from flex */
+  overflow-x: hidden; /* optional, but helpful */
 }
 
 #root {
@@ -41,7 +40,18 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+#root {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
+main {
+  flex: 1;
+  width: 100%;
+}
 html,
 body {
   color-scheme: dark;

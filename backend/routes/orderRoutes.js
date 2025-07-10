@@ -19,41 +19,67 @@ const protect = (req, res, next) => {
 // @route   POST /api/orders
 // @access  Private
 router.post('/', protect, async (req, res) => {
-  const {
-    orderItems,
-    shippingAddress,
-    paymentMethod,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
-  } = req.body;
-
-  if (orderItems && orderItems.length === 0) {
-    res.status(400).json({ message: 'No order items' });
-    return;
-  } else {
-    try {
-      const order = new Order({
-        orderItems: orderItems.map((x) => ({
-          ...x,
-          product: x._id, // Map _id from frontend to product reference
-          _id: undefined, // Remove original _id from orderItems to avoid Mongoose conflict
-        })),
-        user: req.user._id, // Get user from auth middleware
+    // This route is called BEFORE the user pays.
+    const {
+        products,
         shippingAddress,
-        paymentMethod,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-      });
+        totalAmount,
+        paymentGateway, // e.g., 'PAYPAL'
+    } = req.body;
 
-      const createdOrder = await order.save();
-      res.status(201).json(createdOrder);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server Error' });
+    if (!products || products.length === 0) {
+        return res.status(400).json({ message: 'No order items' });
     }
-  }
+
+    try {
+        // Generate a unique ID for this order. This is what you'll track.
+        const merchantOrderId = `MTO-${Date.now()}-${uuid.v4().slice(0, 6)}`;
+
+        const order = new Order({
+            merchantOrderId,
+            userId: req.user._id,
+            products,
+            shippingAddress,
+            totalAmount,
+            paymentDetails: {
+                gateway: paymentGateway.toUpperCase(), // Store as PAYPAL
+                status: 'PENDING', // The order starts as PENDING
+            },
+        });
+
+        const createdOrder = await order.save();
+        res.status(201).json(createdOrder); // Send the PENDING order back to the frontend
+
+    } catch (error) {
+        console.error("Create Pending Order Error:", error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// @desc    Update order to PAID after successful payment
+// @route   PUT /api/orders/:merchantOrderId/pay
+// @access  Private
+router.put('/:merchantOrderId/pay', protect, async (req, res) => {
+    // This route is called AFTER the user pays.
+    const { merchantOrderId } = req.params;
+    const { paymentId, status, webhookPayload } = req.body; // Details from PayPal
+
+    const order = await Order.findOne({ merchantOrderId });
+
+    if (order) {
+        order.paymentDetails.status = 'COMPLETED';
+        order.paymentDetails.paymentId = paymentId;
+        order.paymentDetails.webhookPayload = webhookPayload; // Store the full PayPal response
+
+        const updatedOrder = await order.save();
+        
+        // At this point, you should also decrement product stock
+        // and send a confirmation email.
+
+        res.json(updatedOrder);
+    } else {
+        res.status(404).json({ message: 'Order not found' });
+    }
 });
 
 // @desc    Get logged in user orders

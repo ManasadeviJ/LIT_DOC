@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@azure/storage-blob": "^12.27.0",
+    "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -20,6 +21,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
     "multer": "^2.0.1",
+    "pg-sdk-node": "^2.0.2",
+    "razorpay": "^2.9.6",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

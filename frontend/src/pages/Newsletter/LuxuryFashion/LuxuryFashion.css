@@ -55,6 +55,7 @@
   aspect-ratio: 679 / 453;
 }
 
+
 /* Extra Posts Grid */
 .lf-grid-extra {
   display: grid;
@@ -94,6 +95,15 @@
   color: #fff;
 }
 
+
+/* 1. Force a consistent aspect ratio for the images */
+.lf-grid-extra .card-image-container {
+  aspect-ratio: 4 / 4; /* A standard, pleasant aspect ratio */
+}
+
+.lf-grid-extra .card-description {
+    min-height: 63px; /* 15px padding-top + 48px for two lines of text */
+}
 /* Media Queries */
 @media (max-width: 1023px) {
   .lf-grid-container {

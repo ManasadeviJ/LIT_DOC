@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProduct } from '../../services/api';
-import '/src/styles/ProductDetails.css';
+import '../../styles/productDetails.css';
 
-const ProductDetails = ({ onClose }) => {
+const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState('');
@@ -30,51 +30,19 @@ const ProductDetails = ({ onClose }) => {
     fetchProduct();
   }, [id]);
 
-  // Update selectedImages on color or product change
+  // Update selectedImages when color or product changes
   useEffect(() => {
     if (!product || !product.images) return;
     const colorGroup = product.images.find(group => group.color === selectedColor);
-    console.log('Selected color image group:', colorGroup);
     setSelectedImages(colorGroup?.images || []);
     setActiveImageIndex(0);
   }, [selectedColor, product]);
 
-  // Lock background scroll when open
-  useEffect(() => {
-    const scrollPosition = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollPosition}px`;
-    document.body.style.width = '100%';
-
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollPosition);
-    };
-  }, []);
-
-  // Escape key to close modal
-  useEffect(() => {
-    const handleEscKey = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleEscKey);
-    return () => window.removeEventListener('keydown', handleEscKey);
-  }, [onClose]);
-
-  const handleColorSelect = (color) => {
-    setSelectedColor(color);
-  };
-
-  const handleSizeSelect = (size) => {
-    setSelectedSize(size);
-  };
-
+  const handleColorSelect = (color) => setSelectedColor(color);
+  const handleSizeSelect = (size) => setSelectedSize(size);
   const handleQuantityChange = (e) => {
-    setQuantity(Math.max(1, parseInt(e.target.value)));
+    const value = parseInt(e.target.value);
+    setQuantity(Math.max(1, isNaN(value) ? 1 : value));
   };
 
   const handleAddToCart = () => {
@@ -82,7 +50,9 @@ const ProductDetails = ({ onClose }) => {
       alert('Please select both color and size');
       return;
     }
-    alert(`Added to cart: ${product.name} - ${selectedColor} - ${selectedSize} - Quantity: ${quantity}`);
+
+    alert(`Added to cart: ${product.name} - ${selectedColor} - ${selectedSize} - Qty: ${quantity}`);
+    // You can dispatch your Redux addToCart here
   };
 
   const handleBuyNow = () => {
@@ -99,147 +69,132 @@ const ProductDetails = ({ onClose }) => {
       imageUrl: selectedImages[0] || '',
       color: selectedColor,
       size: selectedSize,
-      quantity: quantity,
+      quantity,
       stock: product.stock,
     };
 
     navigate('/checkout', { state: { items: [orderItem] } });
   };
 
-  const handleClose = (e) => {
-    if (e) e.stopPropagation();
-    onClose();
-  };
-
   if (!product) return <div className="product-details-loading">Loading...</div>;
 
   return (
-    <div className="product-details-container" onClick={handleClose}>
-      <div className="product-details-content" onClick={(e) => e.stopPropagation()}>
-        <button className="close-button" onClick={handleClose} aria-label="Close">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+    <div className="product-details-page">
+      <div className="product-details-grid">
+        {/* Product Images */}
+        <div className="product-images-section">
+          <div className="main-image-container">
+            {selectedImages[activeImageIndex] ? (
+              <img
+                src={selectedImages[activeImageIndex]}
+                alt={`${product.name} - ${selectedColor}`}
+                className="main-product-image"
+              />
+            ) : (
+              <div className="main-product-image placeholder">No Image</div>
+            )}
+          </div>
+          <div className="thumbnail-container">
+            {selectedImages.map((img, index) => (
+              <div
+                key={index}
+                className={`thumbnail ${activeImageIndex === index ? 'active' : ''}`}
+                onClick={() => setActiveImageIndex(index)}
+              >
+                <img src={img} alt={`Thumbnail ${index + 1}`} />
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <div className="product-details-grid">
-          {/* Product Images */}
-          <div className="product-images-section">
-            <div className="main-image-container">
-              {selectedImages[activeImageIndex] ? (
-                <img
-                  src={selectedImages[activeImageIndex]}
-                  alt={`${product.name} - ${selectedColor}`}
-                  className="main-product-image"
-                />
-              ) : (
-                <div className="main-product-image placeholder">No Image</div>
-              )}
-            </div>
-            <div className="thumbnail-container">
-              {selectedImages.map((img, index) => (
-                <div
-                  key={index}
-                  className={`thumbnail ${activeImageIndex === index ? 'active' : ''}`}
-                  onClick={() => setActiveImageIndex(index)}
+        {/* Product Info */}
+        <div className="product-info-section">
+          <div className="brand-name">{product.brand}</div>
+          <h1 className="product-name">{product.name}</h1>
+
+          <div className="price-container">
+            <div className="current-price">Rs. {product.price.toLocaleString()}</div>
+            {product.originalPrice && (
+              <div className="original-price">Rs. {product.originalPrice.toLocaleString()}</div>
+            )}
+            {product.discount && (
+              <div className="discount">{product.discount}% OFF</div>
+            )}
+          </div>
+
+          <div className="product-description">
+            {product.description}
+          </div>
+
+          {/* Color Selection */}
+          <div className="selection-container">
+            <h3>Color</h3>
+            <div className="color-options">
+              {(product.colors || []).map((color) => (
+                <button
+                  key={color}
+                  className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+                  onClick={() => handleColorSelect(color)}
+                  style={{ backgroundColor: color.toLowerCase() }}
+                  title={color}
                 >
-                  <img src={img} alt={`Thumbnail ${index + 1}`} />
-                </div>
+                  {selectedColor === color && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white"
+                      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
+                </button>
               ))}
             </div>
           </div>
 
-          {/* Product Info */}
-          <div className="product-info-section">
-            <div className="brand-name">{product.brand}</div>
-            <h1 className="product-name">{product.name}</h1>
-
-            <div className="price-container">
-              <div className="current-price">Rs. {product.price.toLocaleString()}</div>
-              {product.originalPrice && (
-                <div className="original-price">Rs. {product.originalPrice.toLocaleString()}</div>
-              )}
-              {product.discount && (
-                <div className="discount">{product.discount}% OFF</div>
-              )}
+          {/* Size Selection */}
+          <div className="selection-container">
+            <h3>Size</h3>
+            <div className="size-options">
+              {(product.sizes || []).map((size) => (
+                <button
+                  key={size}
+                  className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                  onClick={() => handleSizeSelect(size)}
+                >
+                  {size}
+                </button>
+              ))}
             </div>
+          </div>
 
-            <div className="product-description">
-              {product.description}
+          {/* Quantity */}
+          <div className="selection-container">
+            <h3>Quantity</h3>
+            <div className="quantity-selector">
+              <button className="quantity-btn" onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={handleQuantityChange}
+                className="quantity-input"
+              />
+              <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
+          </div>
 
-            {/* Color Selection */}
-            <div className="selection-container">
-              <h3>Color</h3>
-              <div className="color-options">
-                {product.colors.map((color) => (
-                  <button
-                    key={color}
-                    className={`color-option ${selectedColor === color ? 'selected' : ''}`}
-                    onClick={() => handleColorSelect(color)}
-                    style={{ backgroundColor: color.toLowerCase() }}
-                    title={color}
-                  >
-                    {selectedColor === color && (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white"
-                        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
+          {/* Buttons */}
+          <div className="action-buttons">
+            <button className="add-to-cart-btn" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="buy-now-btn" onClick={handleBuyNow}>Buy Now</button>
+          </div>
 
-            {/* Size Selection */}
-            <div className="selection-container">
-              <h3>Size</h3>
-              <div className="size-options">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    className={`size-option ${selectedSize === size ? 'selected' : ''}`}
-                    onClick={() => handleSizeSelect(size)}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Quantity Selector */}
-            <div className="selection-container">
-              <h3>Quantity</h3>
-              <div className="quantity-selector">
-                <button className="quantity-btn" onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-                <input
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                  className="quantity-input"
-                />
-                <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="action-buttons">
-              <button className="add-to-cart-btn" onClick={handleAddToCart}>Add to Cart</button>
-              <button className="buy-now-btn" onClick={handleBuyNow}>Buy Now</button>
-            </div>
-
-            {/* Product Features */}
-            <div className="product-details-list">
-              <h3>Product Details</h3>
-              <ul>
-                {(product.features || []).map((detail, index) => (
-                  <li key={index}>{detail}</li>
-                ))}
-              </ul>
-            </div>
+          {/* Features */}
+          <div className="product-details-list">
+            <h3>Product Details</h3>
+            <ul>
+              {(product.features || []).map((detail, index) => (
+                <li key={index}>{detail}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

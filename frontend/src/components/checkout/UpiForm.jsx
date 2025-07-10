@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const GPayLogo = () => <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/2560px-Google_Pay_Logo.svg.png" alt="GPay" />;
+const GPayLogo = () => <img src="https://img.icons8.com/color/512/google-pay.png" alt="GPay"/>;
 const PhonePeLogo = () => <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/2560px-PhonePe_Logo.svg.png" alt="PhonePe" />;
-const PaytmLogo = () => <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo.svg/2560px-Paytm_Logo.svg.png" alt="Paytm" />;
+const PaytmLogo = () => <img src="https://www.citypng.com/public/uploads/preview/hd-paytm-logo-transparent-background-701751694706616oo59sshkej.png" alt="Paytm" />;
 const AmazonPayLogo = () => <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Amazon_Pay_logo.svg/2560px-Amazon_Pay_logo.svg.png" alt="Amazon Pay" />;
 
 const UpiForm = () => {
@@ -93,10 +93,10 @@ const UpiForm = () => {
       <div>
         <label className="upi-section-label">Choose App</label>
         <div className="upi-apps">
-          <button className="upi-app-btn"><GPayLogo /></button>
-          <button className="upi-app-btn"><PhonePeLogo /></button>
-          <button className="upi-app-btn"><PaytmLogo /></button>
-          <button className="upi-app-btn"><AmazonPayLogo /></button>
+          <button className="upi-app-btn" style={{width: '100px'}}><GPayLogo /></button>
+          <button className="upi-app-btn" style={{width: '100px'}}><PhonePeLogo /></button>
+          <button className="upi-app-btn" style={{width: '100px'}}><PaytmLogo /></button>
+          <button className="upi-app-btn" style={{width: '100px'}}><AmazonPayLogo /></button>
         </div>
       </div>
       <div className="upi-divider"><span>or</span></div>

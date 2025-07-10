@@ -18,8 +18,11 @@ const luxuryFashionRoutes = require('./routes/luxuryFashionRoutes');
 const sustainableFashionRoutes = require('./routes/sustainableFashionRoutes');
 const sneakerWorldRoutes = require('./routes/sneakerWorldRoutes');
 
+const paypalRoutes = require('./routes/paypalRoutes.js');
+//payment routes
 
-
+// subscrioton 
+const subscriberRoutes = require('./routes/subscriberRoutes');
 
 // Error middleware
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
@@ -63,6 +66,12 @@ app.use('/api/luxury-fashion', luxuryFashionRoutes);
 app.use('/api/sustainable-fashion', sustainableFashionRoutes);
 app.use('/api/sneaker-world', sneakerWorldRoutes);
 
+// Subscriber Routes
+app.use('/api/subscribers', subscriberRoutes);
+
+// Payment Routes
+app.use('/api/paypal', paypalRoutes);
+
 // Root Route
 app.get('/', (req, res) => {
   res.send('🚀 Unified API for Ecommerce + Newsletter is running...');
@@ -76,3 +85,99 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+
+// require('dotenv').config();
+// const express = require('express');
+// const mongoose = require('mongoose');
+// const cors = require('cors');
+// const path = require('path'); // Required for serving static files
+
+// // Route imports - Ecommerce
+// const productRoutes = require('./routes/productRoutes');
+// const userRoutes = require('./routes/userRoutes');
+// const orderRoutes = require('./routes/orderRoutes');
+// const couponRoutes = require('./routes/couponRoutes');
+
+// // Route imports - Newsletter
+// const articleRoutes = require('./routes/articleRoutes');
+// const mailArticleRoutes = require('./routes/mailArticleRoutes');
+// const fastFashionRoutes = require('./routes/fastFashionRoutes');
+// const luxuryFashionRoutes = require('./routes/luxuryFashionRoutes');
+// const sustainableFashionRoutes = require('./routes/sustainableFashionRoutes');
+// const sneakerWorldRoutes = require('./routes/sneakerWorldRoutes');
+
+// const paypalRoutes = require('./routes/paypalRoutes.js');
+// //payment routes
+
+// // subscrioton 
+// const subscriberRoutes = require('./routes/subscriberRoutes');
+
+// // Error middleware
+// const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+
+// const app = express();
+// const PORT = process.env.PORT || 5000;
+
+// // Middleware
+// app.use(cors({
+//   origin: 'http://localhost:5173', // Adjust for production
+//   credentials: true
+// }));
+
+// // ✅ Fix large request issue
+// app.use(express.json({ limit: '50mb' }));
+// app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// // Serve static folder for uploaded images
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+// // MongoDB Connection
+// mongoose.connect(process.env.MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
+//   .then(() => console.log('✅ MongoDB connected'))
+//   .catch(err => console.error('❌ MongoDB connection error:', err));
+
+
+//   // Special middleware for PhonePe webhook (we'll add the routes later)
+// app.use('/api/webhooks/phonepe', express.raw({
+//     type: 'application/json',
+//     verify: (req, res, buf) => { req.rawBody = buf.toString(); }
+// }));
+// // Ecommerce API Routes
+// app.use('/api/products', productRoutes);
+// app.use('/api/users', userRoutes);
+// app.use('/api/orders', orderRoutes);
+// app.use('/api/coupons', couponRoutes);
+// // app.use('/api/cart', cartRoutes);
+
+// // Newsletter API Routes
+// app.use('/api/articles', articleRoutes);
+// app.use('/api/mail-articles', mailArticleRoutes);
+// app.use('/api/fast-fashion', fastFashionRoutes);
+// app.use('/api/luxury-fashion', luxuryFashionRoutes);
+// app.use('/api/sustainable-fashion', sustainableFashionRoutes);
+// app.use('/api/sneaker-world', sneakerWorldRoutes);
+
+// // Subscriber Routes
+// app.use('/api/newsletter', subscriberRoutes);
+
+// // Payment Routes
+// app.use('/api/paypal', paypalRoutes);
+// app.use('/api/phonepe', require('./routes/phonepe.routes'));
+// app.use('/api/webhooks', require('./routes/webhook.routes'));
+
+// // Root Route
+// app.get('/', (req, res) => {
+//   res.send('🚀 Unified API for Ecommerce + Newsletter is running...');
+// });
+
+// // Error Handling Middleware
+// app.use(notFound);
+// app.use(errorHandler);
+
+// // Start Server
+// app.listen(PORT, () => {
+//   console.log(`🚀 Server running on http://localhost:${PORT}`);
+// });

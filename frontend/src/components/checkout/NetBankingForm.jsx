@@ -38,12 +38,12 @@ const NetBankingForm = () => {
   return (
     <div className="payment-form netbanking-form">
       <div className="form-header">
-        <Landmark className="form-header-icon" size={24} />
-        <h4 className="form-header-title">Net Banking</h4>
+        <Landmark className="form-header-icon" size={24} style={{marginTop: '-15px'}}/>
+        <h4 className="form-header-title" style={{marginLeft: '35px', marginTop: '-28px'}}>Net Banking</h4>
       </div>
       <div className="form-group">
-        <label>Select Bank from the List</label>
-        <div className="custom-dropdown">
+        <label style={{marginTop: '20px'}}>Select Bank from the List</label>
+        <div className="custom-dropdown" style={{marginBottom: '-5px', marginTop: '-10px'}}>
           {/* Step 3: Update the dropdown header to show the selected bank's logo */}
           <button className="dropdown-header" onClick={() => setIsOpen(!isOpen)}>
             {selectedBank ? (
